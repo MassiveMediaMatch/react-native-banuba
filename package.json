@@ -1,17 +1,17 @@
 {
-  "name": "react-native-module-template",
-  "version": "2.2.0",
-  "description": "A starter for the React Native library written in TypeScript, with linked example project and optional native code in Swift and Kotlin.",
-  "homepage": "https://github.com/demchenkoalex/react-native-module-template#readme",
+  "name": "react-native-banuba",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/MassiveMediaMatch/react-native-banuba#readme",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "author": "Alex Demchenko <alexdemchenko@yahoo.com>",
+  "author": "MassiveMedia <info@massivemedia.eu>",
   "license": "MIT",
   "files": [
     "android",
     "ios",
     "lib",
-    "react-native-module-template.podspec",
+    "react-native-banuba.podspec",
     "!.DS_Store",
     "!.gradle",
     "!.idea",
@@ -36,17 +36,16 @@
     "@babel/runtime": "^7.13.10",
     "@react-native-community/eslint-config": "^2.0.0",
     "@types/jest": "^26.0.21",
-    "@types/react-native": "^0.64.0",
-    "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^26.6.3",
     "eslint": "^7.22.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "jest": "^26.6.3",
-    "metro-react-native-babel-preset": "^0.65.2",
+    "metro-react-native-babel-preset": "^0.59.0",
     "react": "^17.0.1",
-    "react-native": "^0.64.0",
+    "react-native": "0.63.4",
     "react-test-renderer": "^17.0.1",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.3",
+    "react-native-unimodules": "~0.12.0"
   },
   "peerDependencies": {
     "react": "*",
@@ -62,5 +61,9 @@
       "json",
       "node"
     ]
+  },
+  "dependencies": {
+    "@types/react": "^17.0.3",
+    "@types/react-native": "^0.64.2"
   }
 }

@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Banuba VE SDK Integration sample</string>
+    <!-- VIDEO EDITOR TOKEN -->
+    <!-- Please contact Banuba https://www.banuba.com/video-editor-sdk to get this token -->
+    <string name="video_editor_token">j468B3S38YMa1ggmVlk+eixK7fK+1u0DuoAruXXiLp1kBNVx3itLv94Te1eVTAjYzgLTORexzjBxlPY0eq222mdxQPF+iLqgmVpWrC4lBXiEByrb5VpUqsFxaM/K9LLWDiI0bdQWeTy8YYulKgmPXrY=</string>
+
+    <!-- Effects -->
+    <!-- Time Effects -->
+    <string name="time_effect_slow_mo">Slow mo</string>
+    <string name="time_effect_rapid">Rapid</string>
+
+    <!-- AR CLOUD -->
+    <!-- Please contact Banuba https://www.banuba.com/video-editor-sdk to get this token -->
+    <string name="ar_cloud_client_id">PUT YOUR AR CLOUD CLIENT ID HERE</string>
+
+    <!-- AUDIO BROWSER MUBERT -->
+    <string name="mubert_api_key">PUT YOUR PERSONAL MUBERT KEY</string>
+
+    <!-- Visual Effects -->
+    <string name="visual_effect_vhs">VHS</string>
+    <string name="visual_effect_rave">Rave</string>
+
+    <!-- Mask Effect -->
+    <string name="mask_effect_hawaiihairflower">HawaiiHairFlower</string>
+    <string name="mask_effect_asailines">AsaiLines</string>
+
+    <string name="effect_player_token">U5n/CVWBj5pHv/5x5zTi/TRKfEC8pkAjGbiOTzWJ90KZtVbb8BITNW7JE/6+DPR+qq9SaEroNrkxQjb7SUWmQvIyho/HXeSTEt0qKPjW0GNNn+kjd3GIjy/nzUjIjLL5TEDiP6FTs40a2RyWCjMNQFW/2hJ6TvFewZGjnZ/Rv1B6dmEfUXb+fUWSYAbbF6ocDLtoOfE/5pjAaZithT6Qdw0+OwitDKi8ERrDijqavQuwIr8cw4rpGM5d58UflXThy2kouLMTw5quuKs/r/rUhIdU1T13sG5i1szNnvd1011QUk7NwpFZTpF93B2M5JcYP1CQDJz09XodxrbXBXrKIvFIkZTmyUBVWlAaxDPM3WFlYAoxx3P0xBtinLQ9K0s1AMcpvgy8jmnh7JXUQQIcNrYj36O9HN+fFxt+vaVLMYF4vV9LwxCW2JPDcF5zJ8+CdQmJ/foDVu3uNZshv0VtgJf3oRkups2h1WwJd6Riqw3m5gIsV3Xfdj8JmrpZ9wRXBjVZV9k86Fe+BYHPzyuNZ+PPfCRsYTwMZtB5Inn7SVH/Dc/4sg3ypjfR4lHI40pyO4s7/DaS5BPoddH8LHgGl29VNfZ+YsWvbB5HUIMtm77PezU7xIBrVtxH/SusMHAQJQ/l0vdTDGKHj/gTwns2yZW3gph+0WFXR6wbvsYg6Poi</string>
+</resources>

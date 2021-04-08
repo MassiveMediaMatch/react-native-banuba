@@ -29,16 +29,53 @@ android {
         minSdkVersion safeExtGet('minSdkVersion', 21)
         targetSdkVersion safeExtGet('targetSdkVersion', 29)
     }
-}
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+allprojects {
+    repositories {
+
+    }
+}
 repositories {
     google()
     jcenter()
     mavenCentral()
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/Banuba/banuba-ve-sdk")
+        credentials {
+            username = "Banuba"
+            password = "\u0038\u0036\u0032\u0037\u0063\u0035\u0031\u0030\u0033\u0034\u0032\u0063\u0061\u0033\u0065\u0061\u0031\u0032\u0034\u0064\u0065\u0066\u0039\u0062\u0034\u0030\u0063\u0063\u0037\u0039\u0038\u0063\u0038\u0038\u0066\u0034\u0031\u0032\u0061\u0038"
+        }
+    }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${safeExtGet('kotlinVersion', '1.4.31')}"
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'
+
+    // Banuba Video Editor SDK dependencies
+    def banubaSdkVersion = '1.0.15'
+    implementation "com.banuba.sdk:camera-sdk:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:camera-ui-sdk:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:core-sdk:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:core-ui-sdk:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:ve-flow-sdk:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:ve-timeline-sdk:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:ve-sdk:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:ve-ui-sdk:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:ve-effects-sdk:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:effect-player-adapter:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:ar-cloud:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:ve-audio-browser-sdk:${banubaSdkVersion}"
+    implementation "com.banuba.sdk:banuba-token-storage-sdk:${banubaSdkVersion}"
 }

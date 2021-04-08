@@ -27,7 +27,7 @@ yarn android
 ## Updating project
 
 1. Remove current `example` project
-2. Create a project named `example` using [react-native-better-template](https://github.com/demchenkoalex/react-native-better-template)
+2. Create a project named `example` using [react-native-better-template](https://github.com/MassiveMediaMatch/react-native-banuba)
 3. Revert `README.md` so you can see this guide
 4. In `tsconfig.json` add
 
