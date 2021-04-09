@@ -12,7 +12,7 @@
         <shape android:shape="rectangle">
             <corners android:radius="8dp" />
             <size android:height="2dp" />
-            <solid android:color="@color/big_stone" />
+            <solid android:color="@color/b_background" />
         </shape>
     </item>
 </selector>

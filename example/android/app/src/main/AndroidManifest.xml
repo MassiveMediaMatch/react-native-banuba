@@ -24,7 +24,7 @@ xmlns:tools="http://schemas.android.com/tools"
         </activity>
 
         <activity android:name="com.banuba.sdk.ve.flow.VideoCreationActivity"
-            android:theme="@style/CustomIntegrationAppTheme"
+            android:theme="@style/BanubaEditorTheme"
             tools:replace="android:theme"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />

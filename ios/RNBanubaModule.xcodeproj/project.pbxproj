@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A2B6B94D10140F49949AFF7 /* Pods_RNBanubaModule.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58CA462060BD957A85055DC5 /* Pods_RNBanubaModule.framework */; };
 		FA4F9FE82512AA42002DB4D5 /* RNBanubaModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4F9FE72512AA42002DB4D5 /* RNBanubaModule.swift */; };
 		FA4F9FEB2512ACC2002DB4D5 /* RNBanubaModule.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4F9FEA2512ACC2002DB4D5 /* RNBanubaModule.m */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		58CA462060BD957A85055DC5 /* Pods_RNBanubaModule.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RNBanubaModule.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC28FE22261DF14A0063752A /* libRNBanubaModule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRNBanubaModule.a; path = "/Users/trikke/work/react-native-banuba/ios/build/Debug-iphoneos/libRNBanubaModule.a"; sourceTree = "<absolute>"; };
 		D02D6B0896AF994AEEF09191 /* Pods-RNBanubaModule.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNBanubaModule.debug.xcconfig"; path = "Target Support Files/Pods-RNBanubaModule/Pods-RNBanubaModule.debug.xcconfig"; sourceTree = "<group>"; };
 		F2C8FDBA7A63D67CAE2B4D8F /* Pods-RNBanubaModule.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNBanubaModule.release.xcconfig"; path = "Target Support Files/Pods-RNBanubaModule/Pods-RNBanubaModule.release.xcconfig"; sourceTree = "<group>"; };
@@ -37,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A2B6B94D10140F49949AFF7 /* Pods_RNBanubaModule.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +58,7 @@
 		C6400166500A176E06CA5551 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				58CA462060BD957A85055DC5 /* Pods_RNBanubaModule.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

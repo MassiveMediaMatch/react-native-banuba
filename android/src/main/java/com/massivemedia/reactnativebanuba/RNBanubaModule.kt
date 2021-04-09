@@ -1,20 +1,17 @@
 package com.massivemedia.reactnativebanuba
 
-import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.bridge.ReactContextBaseJavaModule
-
-import com.banuba.sdk.arcloud.di.ArCloudKoinModule
-import com.banuba.sdk.effectplayer.adapter.BanubaEffectPlayerKoinModule
-import com.banuba.sdk.token.storage.TokenStorageKoinModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
-import com.massivemedia.reactnativebanuba.videoeditor.di.VideoEditorKoinModule
-import com.facebook.react.bridge.ReactMethod
+import android.app.Activity
+import android.content.Intent
+import android.util.Log
 import com.banuba.sdk.cameraui.domain.MODE_RECORD_VIDEO
 import com.banuba.sdk.ve.flow.VideoCreationActivity
-import org.koin.core.context.KoinContextHandler
+import com.banuba.sdk.veui.ui.EXTRA_EXPORTED_SUCCESS
+import com.banuba.sdk.veui.ui.ExportResult
+import com.facebook.react.bridge.*
+import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter
 
-class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
+
+class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext), ActivityEventListener {
 
     override fun getName() = "RNBanubaModule"
 
@@ -24,7 +21,7 @@ class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
 
     
     @ReactMethod
-    fun startEditor() {
+    fun startEditor(promise: Promise) {
         val intent = VideoCreationActivity.buildIntent(
                 reactApplicationContext,
                 // setup what kind of action you want to do with VideoCreationActivity
@@ -34,11 +31,24 @@ class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
                 // set TrackData object if you open VideoCreationActivity with preselected music track
                 null
         )
+        reactApplicationContext.addActivityEventListener(this)
         reactApplicationContext.startActivityForResult(intent, 1, null);
+        promise.resolve(true)
     }
 
-    @Override
-    fun onHostDestroy() {
-        KoinContextHandler.stop()
+    override fun onNewIntent(intent: Intent?) {}
+
+    override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data !== null ) {
+            var bundle:ExportResult.Success = data.getParcelableExtra(EXTRA_EXPORTED_SUCCESS)
+            var videoUrls = bundle.videoList.map { video -> video.fileUri.toString() }
+
+            val map = Arguments.createMap()
+            map.putString("preview", bundle.preview.toString())
+            map.putArray("urls", Arguments.fromArray(videoUrls.toTypedArray()))
+            reactApplicationContext
+                    .getJSModule(RCTDeviceEventEmitter::class.java)
+                    .emit("BANUBA_SUCCESS", null)
+        }
     }
 }

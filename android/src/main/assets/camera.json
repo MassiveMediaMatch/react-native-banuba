@@ -7,7 +7,7 @@
   "supportsFlashlight": true,
   "supportsDurationTimeline": true,
   "supportsSpeedRecording": true,
-  "supportsExternalMusic": true,
+  "supportsExternalMusic": false,
   "supportsMuteMic": true,
   "textOnMaskColorCountOnPage": -1,
   "switchFacingOnDoubleTap": true,

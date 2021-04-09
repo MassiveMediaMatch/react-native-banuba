@@ -3,7 +3,7 @@
     <!-- To customize video editor according to your app style you should
          create your own theme inherited from VideoCreationTheme and apply it
          to VideoCreationActivity in AndroidManifest.xml file -->
-    <style name="CustomIntegrationAppTheme" parent="VideoCreationTheme">
+    <style name="BanubaEditorTheme" parent="VideoCreationTheme">
 
         <!-- Camera screen styles -->
         <item name="cameraOverlayStyle">@style/CustomCameraOverlayStyle</item>
@@ -101,7 +101,7 @@
         <item name="gallery_item_corner_radius">4dp</item>
         <item name="gallery_item_margin">2dp</item>
         <item name="gallery_icon_back">@drawable/ic_nav_back_arrow</item>
-        <item name="gallery_album_divider_color">@color/catskill_white</item>
+        <item name="gallery_album_divider_color">@color/b_primary</item>
         <!---->
 
 
@@ -198,7 +198,7 @@
 
         <item name="music_editor_surface_background">@color/black</item>
         <item name="music_editor_voice_recording_background">@color/black</item>
-        <item name="music_editor_timeline_background">@color/big_stone</item>
+        <item name="music_editor_timeline_background">@color/b_background</item>
         <item name="music_editor_playback_controller_bg">@color/black</item>
         <item name="music_editor_action_container_bg">@color/black</item>
 
@@ -371,7 +371,7 @@
         <item name="camera_gradient_top">@android:color/transparent</item>
         <item name="camera_gradient_bottom">@android:color/transparent</item>
 
-        <item name="camera_effects_list_background">@color/big_stone</item>
+        <item name="camera_effects_list_background">@color/transparent</item>
     </style>
 
     <!-- Style for the music icon placed on top of the camera screen.
@@ -380,7 +380,10 @@
     <style name="CustomCameraMusicTopIconStyle" parent="CameraMusicTopIconStyle" />
 
     <!-- Style for appearance of icons defined in CameraOverlayStyle -->
-    <style name="CustomCameraActionButtonStyle" parent="CameraActionButtonStyle" />
+    <style name="CustomCameraActionButtonStyle" parent="CameraActionButtonStyle">
+        <item name="descriptionPosition">bottom</item>
+        <item name="android:layout_marginBottom">12dp</item>
+    </style>
 
     <!-- Style for appearance of "icon_back" icon defined in CameraOverlayStyle -->
     <style name="CustomCameraBackButtonStyle" parent="CameraBackButtonStyle" />
@@ -390,15 +393,23 @@
          These states are applied when the user can or can not proceed with recorded video accordingly,
          so the best approach to set background is to use selector -->
     <style name="CustomCameraNextButtonStyle" parent="CameraNextButtonStyle">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:background">@drawable/bg_next_button</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
     </style>
 
     <!-- Style for effects (filters and masks) list label. As default it's visibility is gone -->
     <style name="CustomCameraEffectLabelStyle" parent="CameraEffectLabelStyle" />
 
     <!-- Style for effects (filters and masks) list items -->
-    <style name="CustomCameraEffectsItemStyle" parent="CameraEffectsItemStyle" />
+    <style name="CustomCameraEffectsItemStyle" parent="CameraEffectsItemStyle">
+        <item name="corner_radius">4dp</item>
+    </style>
 
     <!-- Style for effects (filters and masks) RecyclerView -->
     <style name="CustomCameraEffectsRecyclerStyle" parent="CameraEffectsRecyclerStyle" />
@@ -408,19 +419,21 @@
 
     <!-- Style for the whole view that shows available recording speed options -->
     <style name="CustomCameraSpeedPickerViewStyle" parent="CameraSpeedPickerViewStyle">
-        <item name="android:background">@color/big_stone</item>
+        <item name="android:background">@drawable/bg_corner_8</item>
     </style>
 
     <!-- Style for the speed option item. Speed option my be selected and unselected
          so the best approach to set background as selector -->
     <style name="CustomCameraSpeedPickerItemStyle" parent="CameraSpeedPickerItemStyle">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:background">@drawable/bg_item_speed_picker</item>
+        <item name="android:textFontWeight">800</item>
     </style>
 
     <style name="CustomActionableEffectTitleStyle" parent="ActionableEffectTitleStyle" />
 
-    <style name="CustomCheckableEffectTitleStyle" parent="CheckableEffectTitleStyle" />
+    <style name="CustomCheckableEffectTitleStyle" parent="CheckableEffectTitleStyle">
+    </style>
 
     <!-- Style for the appearance of "icon_remove_last_piece" defined in CameraOverlayStyle -->
     <style name="CustomCameraRemoveLastPieceButtonStyle" parent="CameraRemoveLastPieceButtonStyle" />
@@ -429,8 +442,8 @@
     <style name="CustomCameraTimelineRecorderStyle" parent="CameraTimelineRecorderStyle">
         <item name="divider_width">3dp</item>
         <item name="background_color">@color/dustyGray</item>
-        <item name="divider_color">@color/big_stone</item>
-        <item name="normal_color">@color/egg_blue</item>
+        <item name="divider_color">@color/b_background</item>
+        <item name="normal_color">@color/b_primary</item>
         <item name="delete_color">@color/violet_red</item>
     </style>
 
@@ -467,7 +480,6 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:foreground">?android:selectableItemBackgroundBorderless</item>
     </style>
 
     <!-- If you override alert dialog layout you should override styles below as well
@@ -475,11 +487,11 @@
          CameraDialogPositiveButton, CameraDialogNegativeButton, CameraDialogNormalButton for camera screen and
          EditorDialogPositiveButton, EditorDialogNegativeButton, EditorDialogNormalButton for editor screen -->
     <style name="CameraDialogPositiveButton">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/ablo</item>
     </style>
 
     <style name="CameraDialogNegativeButton">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="CameraDialogNormalButton">
@@ -533,8 +545,14 @@
     <style name="CustomEditorActionButtonStyle" parent="EditorActionButtonStyle" />
 
     <style name="CustomEditorNextButtonStyle" parent="EditorNextButtonStyle">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:background">@drawable/bg_next_button</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
     </style>
 
     <style name="CustomEditorBackButtonStyle" parent="EditorBackButtonStyle" />
@@ -609,15 +627,15 @@
 
     <!--Gallery styles-->
     <style name="CustomGalleryTabLayoutStyle" parent="GalleryTabLayoutStyle">
-        <item name="tabIndicatorColor">@color/egg_blue</item>
+        <item name="tabIndicatorColor">@color/b_primary</item>
     </style>
 
     <style name="CustomGalleryAlbumBlurViewStyle" parent="GalleryAlbumBlurViewStyle">
-        <item name="overlay_color">@color/big_stone_a90</item>
+        <item name="overlay_color">@color/black</item>
     </style>
 
     <style name="CustomGalleryItemRadioButtonStyle" parent="GalleryItemRadioButtonStyle">
-        <item name="checked_color">@color/egg_blue</item>
+        <item name="checked_color">@color/b_primary</item>
     </style>
 
     <style name="CustomGalleryItemTextStyle" parent="GalleryItemTextStyle">
@@ -636,6 +654,8 @@
 
     <style name="CustomGalleryAlbumTitleTextStyle" parent="GalleryAlbumTitleTextStyle">
         <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="CustomGalleryAlbumDescTextStyle" parent="GalleryAlbumDescTextStyle">
@@ -652,7 +672,7 @@
     </style>
 
     <style name="CustomGalleryNextButtonStyle" parent="GalleryNextButtonStyle">
-        <item name="android:textColor">@color/egg_blue</item>
+        <item name="android:textColor">@color/b_primary</item>
     </style>
 
     <style name="CustomGalleryImageViewStyle" parent="GalleryImageViewStyle">
@@ -693,18 +713,18 @@
     </style>
 
     <style name="CustomTrimmerNextButtonStyle" parent="TrimmerNextButtonStyle">
-        <item name="android:textColor">@color/egg_blue</item>
+        <item name="android:textColor">@color/b_primary</item>
     </style>
 
     <style name="CustomTrimmerCancelButtonStyle" parent="TrimmerCancelButtonStyle">
-        <item name="android:textColor">@color/egg_blue</item>
+        <item name="android:textColor">@color/b_primary</item>
     </style>
 
     <style name="CustomTrimmerDurationTimelineStyle" parent="TrimmerDurationTimelineStyle">
         <item name="timeline_duration_background_color">@color/bg_trimmer_duration_timeline</item>
         <item name="timeline_duration_divider_color">@color/black</item>
         <item name="timeline_duration_stable_color">@color/white</item>
-        <item name="timeline_duration_fit_color">@color/egg_blue</item>
+        <item name="timeline_duration_fit_color">@color/b_primary</item>
         <item name="timeline_duration_limit_color">@color/violet_red</item>
     </style>
 
@@ -802,23 +822,23 @@
     <style name="CustomMusicEditorVideoVolumeTitleStyle" parent="MusicEditorVideoVolumeTitleStyle" />
 
     <style name="CustomMusicEditorVideoVolumeValueStyle" parent="MusicEditorVideoVolumeValueStyle">
-        <item name="android:textColor">@color/egg_blue</item>
+        <item name="android:textColor">@color/b_primary</item>
         <item name="android:textSize">16sp</item>
     </style>
 
     <style name="CustomMusicEditorVideoVolumeProgressBarStyle" parent="MusicEditorVideoVolumeProgressBarStyle">
         <item name="android:maxHeight">3dp</item>
-        <item name="android:progressTint">@color/egg_blue</item>
-        <item name="android:thumbTint">@color/egg_blue</item>
+        <item name="android:progressTint">@color/b_primary</item>
+        <item name="android:thumbTint">@color/b_primary</item>
     </style>
 
     <style name="CustomMusicEditorTrimViewStyle" parent="MusicEditorTrimViewStyle">
-        <item name="music_editor_trimmer_background_color">@color/big_stone</item>
+        <item name="music_editor_trimmer_background_color">@color/b_background</item>
         <item name="music_editor_trimmer_title_color">@color/white</item>
         <item name="music_editor_trimmer_done_icon">@drawable/ic_done</item>
         <item name="music_editor_trimmer_volume_value_color">@color/white</item>
-        <item name="music_editor_trimmer_volume_progress_tint">@color/egg_blue</item>
-        <item name="music_editor_trimmer_volume_thumb_tint">@color/egg_blue</item>
+        <item name="music_editor_trimmer_volume_progress_tint">@color/b_primary</item>
+        <item name="music_editor_trimmer_volume_thumb_tint">@color/b_primary</item>
     </style>
 
     <style name="CustomMusicEditorTrimmerStyle" parent="MusicEditorTrimmerStyle">
@@ -883,11 +903,11 @@
     <style name="CustomExtendedCoverExternalPhotoDeleteBackgroundStyle" parent="ExtendedCoverExternalPhotoDeleteBackgroundStyle" />
 
     <style name="CustomExtendedCoverExternalPhotoDeleteStyle" parent="ExtendedCoverExternalPhotoDeleteStyle">
-        <item name="android:textColor">@color/egg_blue</item>
+        <item name="android:textColor">@color/b_primary</item>
     </style>
 
     <style name="CustomExtendedCoverExternalPhotoChooseStyle" parent="ExtendedCoverExternalPhotoChooseStyle">
-        <item name="android:textColor">@color/egg_blue</item>
+        <item name="android:textColor">@color/b_primary</item>
     </style>
 
     <style name="CustomExtendedCoverDescriptionStyle" parent="ExtendedCoverDescriptionStyle" />
@@ -963,7 +983,7 @@
     <style name="CustomPermissionsDialogDescription" parent="PermissionsDialogDescription" />
 
     <style name="CustomPermissionsDialogActionButton" parent="PermissionsDialogActionButton">
-        <item name="android:background">@color/egg_blue</item>
+        <item name="android:background">@color/b_primary</item>
     </style>
     <!---->
 </resources>

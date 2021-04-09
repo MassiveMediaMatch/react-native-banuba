@@ -4,7 +4,7 @@
     "maxVideoDuration": 60000,
     "supportsTimeEffects": true,
     "supportsVisualEffects": true,
-    "supportsMusicMixer": true,
+    "supportsMusicMixer": false,
     "supportsCoverImage": true,
     "banubaColorEffectsAssetsPath": "luts",
     "textOnVideoColorCountOnPage": 6,
