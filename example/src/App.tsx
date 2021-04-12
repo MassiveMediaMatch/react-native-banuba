@@ -9,7 +9,6 @@ const App = () => {
   })
 
   return <View style={styles.container}>
-      <Text>You pressed 1 times</Text>
       <Button onPress={() => RNBanubaModule.startEditor()} title='Press Me' />
     </View>
 }

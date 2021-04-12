@@ -1,6 +1,5 @@
 import { NativeModules } from 'react-native';
-const { CalendarModule } = NativeModules
-interface CalendarInterface {
+interface VideoEditorInterface {
   startEditor(): void;
 }
-export default NativeModules.RNBanubaModule as CalendarInterface;
+export default NativeModules.RNBanubaModule as VideoEditorInterface;
