@@ -8,8 +8,17 @@ const App = () => {
     console.log(RNBanubaModule)
   })
 
+  const onSubmit = async () => {
+    try {
+      const data = await RNBanubaModule.startEditor()
+      console.log('Created a new video', data)
+    } catch (e) {
+      console.error(e)
+    }
+  };
+
   return <View style={styles.container}>
-      <Button onPress={() => RNBanubaModule.startEditor()} title='Press Me' />
+      <Button onPress={onSubmit} title='Start Video Editor' />
     </View>
 }
 
@@ -18,7 +27,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 200,
   },
 })
 

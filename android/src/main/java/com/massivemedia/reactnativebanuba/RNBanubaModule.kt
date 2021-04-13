@@ -2,7 +2,6 @@ package com.massivemedia.reactnativebanuba
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import com.banuba.sdk.cameraui.domain.MODE_RECORD_VIDEO
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import com.banuba.sdk.veui.ui.EXTRA_EXPORTED_SUCCESS
@@ -12,6 +11,8 @@ import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEm
 
 
 class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext), ActivityEventListener {
+
+    private val cache: PromiseCache = PromiseCache()
 
     override fun getName() = "RNBanubaModule"
 
@@ -33,22 +34,29 @@ class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
         )
         reactApplicationContext.addActivityEventListener(this)
         reactApplicationContext.startActivityForResult(intent, 1, null);
-        promise.resolve(true)
+        cache!!.putPromise("result", promise)
     }
 
     override fun onNewIntent(intent: Intent?) {}
 
     override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data !== null ) {
-            var bundle:ExportResult.Success = data.getParcelableExtra(EXTRA_EXPORTED_SUCCESS)
-            var videoUrls = bundle.videoList.map { video -> video.fileUri.toString() }
+        if (requestCode == 1 ) {
+            if (resultCode == Activity.RESULT_OK && data !== null) {
+                var bundle:ExportResult.Success = data.getParcelableExtra(EXTRA_EXPORTED_SUCCESS)
+                var videoUrls = bundle.videoList.map { video -> video.fileUri.toString() }
 
-            val map = Arguments.createMap()
-            map.putString("preview", bundle.preview.toString())
-            map.putArray("urls", Arguments.fromArray(videoUrls.toTypedArray()))
-            reactApplicationContext
-                    .getJSModule(RCTDeviceEventEmitter::class.java)
-                    .emit("BANUBA_SUCCESS", null)
+                val map = Arguments.createMap()
+                map.putString("preview", bundle.preview.toString())
+                map.putArray("urls", Arguments.fromArray(videoUrls.toTypedArray()))
+                if (cache.hasPromise("result")) {
+                    cache.resolvePromise("result", map)
+                }
+            } else {
+                if (cache.hasPromise("result")) {
+                    cache.rejectPromise("result", "banuba error")
+                }
+            }
+
         }
     }
 }
