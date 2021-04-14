@@ -2,10 +2,10 @@ package com.massivemedia.reactnativebanuba.videoeditor.impl
 
 import android.content.Context
 import android.view.ViewGroup
-import com.massivemedia.reactnativebanuba.R
-import com.massivemedia.reactnativebanuba.videoeditor.widget.recordbutton.RecordButtonView
 import com.banuba.sdk.cameraui.data.CameraRecordingAnimationProvider
 import com.banuba.sdk.core.ui.ext.dimenPx
+import com.massivemedia.reactnativebanuba.R
+import com.massivemedia.reactnativebanuba.videoeditor.widget.recordbutton.RecordButtonView
 
 internal class IntegrationAppRecordingAnimationProvider(context: Context) : CameraRecordingAnimationProvider {
 
@@ -61,8 +61,8 @@ internal class IntegrationAppRecordingAnimationProvider(context: Context) : Came
             is CameraRecordingAnimationProvider.VideoState.StartRecord -> {
                 if (state.availableDurationMs <= 0) return
                 animationView.animateStartVideoRecord(
-                    availableDurationMs = state.availableDurationMs,
-                    maxDurationMs = state.maxDurationMs
+                        availableDurationMs = state.availableDurationMs,
+                        maxDurationMs = state.maxDurationMs
                 ) {
                     onStartRecordingAnimationCallback()
                 }

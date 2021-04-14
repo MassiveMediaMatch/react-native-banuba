@@ -1,10 +1,10 @@
 package com.massivemedia.reactnativebanuba.videoeditor.data
 
 import android.net.Uri
-import com.massivemedia.reactnativebanuba.R
 import com.banuba.sdk.core.effects.IEffectDrawable
 import com.banuba.sdk.effects.ve.visual.mask.MaskDrawable
 import com.banuba.sdk.ve.effects.EditorEffectProvider
+import com.massivemedia.reactnativebanuba.R
 
 sealed class MaskEffects : EditorEffectProvider<IEffectDrawable> {
 
@@ -21,7 +21,7 @@ sealed class MaskEffects : EditorEffectProvider<IEffectDrawable> {
     data class AsaiLines(val effectsUri: Uri) : MaskEffects() {
 
         override val path: Uri =
-            effectsUri.buildUpon().appendPath("AsaiLines").build()
+                effectsUri.buildUpon().appendPath("AsaiLines").build()
 
         override val nameRes: Int
             get() = R.string.mask_effect_asailines
@@ -33,7 +33,7 @@ sealed class MaskEffects : EditorEffectProvider<IEffectDrawable> {
     data class HawaiiHairFlower(val effectsUri: Uri) : MaskEffects() {
 
         override val path: Uri =
-            effectsUri.buildUpon().appendPath("HawaiiHairFlower").build()
+                effectsUri.buildUpon().appendPath("HawaiiHairFlower").build()
 
         override val nameRes: Int
             get() = R.string.mask_effect_hawaiihairflower

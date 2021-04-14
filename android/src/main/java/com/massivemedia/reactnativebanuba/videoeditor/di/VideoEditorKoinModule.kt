@@ -1,13 +1,15 @@
 package com.massivemedia.reactnativebanuba.videoeditor.di
 
-import android.util.Log
-import com.banuba.sdk.arcloud.data.source.ArEffectsRepositoryProvider
+import com.banuba.example.integrationapp.videoeditor.di.RemoteFaceArTokenProvider
+import com.banuba.example.integrationapp.videoeditor.di.RemoteVideoEditorTokenProvider
 import com.banuba.sdk.audiobrowser.domain.AudioBrowserMusicProvider
 import com.banuba.sdk.cameraui.data.CameraRecordingAnimationProvider
 import com.banuba.sdk.cameraui.data.CameraTimerStateProvider
 import com.banuba.sdk.core.AREffectPlayerProvider
+import com.banuba.sdk.core.HardwareClassProvider
 import com.banuba.sdk.core.SimpleEffectPlayerManager
 import com.banuba.sdk.core.domain.TrackData
+import com.banuba.sdk.core.supportsFaceAR
 import com.banuba.sdk.core.ui.ContentFeatureProvider
 import com.banuba.sdk.effectplayer.adapter.BanubaAREffectPlayerProvider
 import com.banuba.sdk.token.storage.TokenProvider
@@ -18,14 +20,12 @@ import com.banuba.sdk.ve.flow.FlowEditorModule
 import com.banuba.sdk.ve.flow.export.ForegroundExportFlowManager
 import com.banuba.sdk.veui.data.ExportParamsProvider
 import com.banuba.sdk.veui.domain.CoverProvider
-import com.massivemedia.reactnativebanuba.R
 import com.massivemedia.reactnativebanuba.videoeditor.data.TimeEffects
 import com.massivemedia.reactnativebanuba.videoeditor.data.VisualEffects
 import com.massivemedia.reactnativebanuba.videoeditor.export.IntegrationAppExportParamsProvider
 import com.massivemedia.reactnativebanuba.videoeditor.impl.IntegrationAppRecordingAnimationProvider
 import com.massivemedia.reactnativebanuba.videoeditor.impl.IntegrationAppWatermarkProvider
 import com.massivemedia.reactnativebanuba.videoeditor.impl.IntegrationTimerStateProvider
-import org.koin.android.ext.koin.androidContext
 import org.koin.core.definition.BeanDefinition
 import org.koin.core.qualifier.named
 
@@ -102,10 +102,28 @@ class VideoEditorKoinModule : FlowEditorModule() {
         CoverProvider.EXTENDED
     }
 
-    override val effectPlayerManager: BeanDefinition<AREffectPlayerProvider> = single(override = true) {
-        SimpleEffectPlayerManager(
-                mediaSizeProvider = get(),
-                token = RemoteTokenProvider().getToken()
-        )
+    override val effectPlayerManager: BeanDefinition<AREffectPlayerProvider> =
+            single(override = true) {
+                val hardwareClass = get<HardwareClassProvider>().provideHardwareClass()
+                val veToken = RemoteVideoEditorTokenProvider().getToken()
+                if (hardwareClass.supportsFaceAR) {
+                    BanubaAREffectPlayerProvider(
+                            mediaSizeProvider = get(),
+                            token = veToken
+                    )
+                } else {
+                    SimpleEffectPlayerManager(
+                            mediaSizeProvider = get(),
+                            token = veToken
+                    )
+                }
+            }
+
+    val faceArTokenProvider = single<TokenProvider>(
+            named("faceArTokenProvider"),
+            createdAtStart = true,
+            override = true
+    ) {
+        RemoteFaceArTokenProvider()
     }
 }

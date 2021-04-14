@@ -12,13 +12,13 @@ import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
-import com.massivemedia.reactnativebanuba.R
 import com.banuba.sdk.core.ui.ext.dimenPx
+import com.massivemedia.reactnativebanuba.R
 
 internal class RecordButtonView @JvmOverloads constructor(
-    context: Context,
-    attributeSet: AttributeSet? = null,
-    defStyleAttrs: Int = 0
+        context: Context,
+        attributeSet: AttributeSet? = null,
+        defStyleAttrs: Int = 0
 ) : FrameLayout(context, attributeSet, defStyleAttrs) {
 
     companion object {
@@ -54,17 +54,17 @@ internal class RecordButtonView @JvmOverloads constructor(
     }
 
     private val photoShootAnimation = ObjectAnimator.ofPropertyValuesHolder(
-        innerOvalPart,
-        PropertyValuesHolder.ofFloat(
-            "scaleX",
-            PHOTO_SHOOT_ANIMATION_SCALE_START,
-            PHOTO_SHOOT_ANIMATION_SCALE_END
-        ),
-        PropertyValuesHolder.ofFloat(
-            "scaleY",
-            PHOTO_SHOOT_ANIMATION_SCALE_START,
-            PHOTO_SHOOT_ANIMATION_SCALE_END
-        )
+            innerOvalPart,
+            PropertyValuesHolder.ofFloat(
+                    "scaleX",
+                    PHOTO_SHOOT_ANIMATION_SCALE_START,
+                    PHOTO_SHOOT_ANIMATION_SCALE_END
+            ),
+            PropertyValuesHolder.ofFloat(
+                    "scaleY",
+                    PHOTO_SHOOT_ANIMATION_SCALE_START,
+                    PHOTO_SHOOT_ANIMATION_SCALE_END
+            )
     ).apply {
         duration = DEFAULT_DURATION_MS
         repeatCount = 1
@@ -73,33 +73,33 @@ internal class RecordButtonView @JvmOverloads constructor(
 
     private val videoShootInnerAnimation = AnimatorSet().apply {
         val ovalAnim = ObjectAnimator.ofPropertyValuesHolder(
-            innerOvalPart,
-            PropertyValuesHolder.ofFloat(
-                "scaleX",
-                VIDEO_SHOOT_INNER_ANIMATION_SCALE_START,
-                VIDEO_SHOOT_INNER_ANIMATION_SCALE_END
-            ),
-            PropertyValuesHolder.ofFloat(
-                "scaleY",
-                VIDEO_SHOOT_INNER_ANIMATION_SCALE_START,
-                VIDEO_SHOOT_INNER_ANIMATION_SCALE_END
-            )
+                innerOvalPart,
+                PropertyValuesHolder.ofFloat(
+                        "scaleX",
+                        VIDEO_SHOOT_INNER_ANIMATION_SCALE_START,
+                        VIDEO_SHOOT_INNER_ANIMATION_SCALE_END
+                ),
+                PropertyValuesHolder.ofFloat(
+                        "scaleY",
+                        VIDEO_SHOOT_INNER_ANIMATION_SCALE_START,
+                        VIDEO_SHOOT_INNER_ANIMATION_SCALE_END
+                )
         ).apply {
             duration = DEFAULT_DURATION_MS
             repeatCount = VIDEO_SHOOT_INNER_ANIMATION_REPEAT_COUNT
         }
         val squareAnim = ObjectAnimator.ofPropertyValuesHolder(
-            innerSquarePart,
-            PropertyValuesHolder.ofFloat(
-                "scaleX",
-                VIDEO_SHOOT_INNER_ANIMATION_SCALE_END,
-                VIDEO_SHOOT_INNER_ANIMATION_SCALE_START
-            ),
-            PropertyValuesHolder.ofFloat(
-                "scaleY",
-                VIDEO_SHOOT_INNER_ANIMATION_SCALE_END,
-                VIDEO_SHOOT_INNER_ANIMATION_SCALE_START
-            )
+                innerSquarePart,
+                PropertyValuesHolder.ofFloat(
+                        "scaleX",
+                        VIDEO_SHOOT_INNER_ANIMATION_SCALE_END,
+                        VIDEO_SHOOT_INNER_ANIMATION_SCALE_START
+                ),
+                PropertyValuesHolder.ofFloat(
+                        "scaleY",
+                        VIDEO_SHOOT_INNER_ANIMATION_SCALE_END,
+                        VIDEO_SHOOT_INNER_ANIMATION_SCALE_START
+                )
         ).apply {
             duration = DEFAULT_DURATION_MS
             repeatCount = VIDEO_SHOOT_INNER_ANIMATION_REPEAT_COUNT
@@ -108,17 +108,17 @@ internal class RecordButtonView @JvmOverloads constructor(
     }
     private val videoShootOuterAnimation = AnimatorSet().apply {
         val circleAnim = ObjectAnimator.ofPropertyValuesHolder(
-            outerPart,
-            PropertyValuesHolder.ofFloat(
-                "scaleX",
-                PHOTO_SHOOT_OUTER_ANIMATION_START,
-                PHOTO_SHOOT_OUTER_ANIMATION_END
-            ),
-            PropertyValuesHolder.ofFloat(
-                "scaleY",
-                PHOTO_SHOOT_OUTER_ANIMATION_START,
-                PHOTO_SHOOT_OUTER_ANIMATION_END
-            )
+                outerPart,
+                PropertyValuesHolder.ofFloat(
+                        "scaleX",
+                        PHOTO_SHOOT_OUTER_ANIMATION_START,
+                        PHOTO_SHOOT_OUTER_ANIMATION_END
+                ),
+                PropertyValuesHolder.ofFloat(
+                        "scaleY",
+                        PHOTO_SHOOT_OUTER_ANIMATION_START,
+                        PHOTO_SHOOT_OUTER_ANIMATION_END
+                )
         ).apply {
             duration = DEFAULT_DURATION_MS
             repeatCount = 0
@@ -148,13 +148,13 @@ internal class RecordButtonView @JvmOverloads constructor(
     }
 
     fun animateStartVideoRecord(
-        availableDurationMs: Long,
-        maxDurationMs: Long,
-        onEndCallback: () -> Unit
+            availableDurationMs: Long,
+            maxDurationMs: Long,
+            onEndCallback: () -> Unit
     ) {
         outerPart.startAnimation(
-            availableDurationMs = availableDurationMs,
-            maxDurationMs = maxDurationMs
+                availableDurationMs = availableDurationMs,
+                maxDurationMs = maxDurationMs
         )
         with(videoShootInnerAnimation) {
             interpolator = LinearInterpolator()

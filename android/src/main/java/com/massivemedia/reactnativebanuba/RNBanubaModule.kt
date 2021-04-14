@@ -2,12 +2,12 @@ package com.massivemedia.reactnativebanuba
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import com.banuba.sdk.cameraui.domain.MODE_RECORD_VIDEO
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import com.banuba.sdk.veui.ui.EXTRA_EXPORTED_SUCCESS
 import com.banuba.sdk.veui.ui.ExportResult
 import com.facebook.react.bridge.*
-import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter
 
 
 class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext), ActivityEventListener {
@@ -20,7 +20,7 @@ class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
         return hashMapOf()
     }
 
-    
+
     @ReactMethod
     fun startEditor(promise: Promise) {
         val intent = VideoCreationActivity.buildIntent(
@@ -34,15 +34,16 @@ class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
         )
         reactApplicationContext.addActivityEventListener(this)
         reactApplicationContext.startActivityForResult(intent, 1, null);
-        cache!!.putPromise("result", promise)
+        cache.putPromise("result", promise)
     }
 
     override fun onNewIntent(intent: Intent?) {}
 
     override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 1 ) {
+        if (requestCode == 1) {
+            Log.w("result", resultCode.toString() + " = " + data.toString())
             if (resultCode == Activity.RESULT_OK && data !== null) {
-                var bundle:ExportResult.Success = data.getParcelableExtra(EXTRA_EXPORTED_SUCCESS)
+                var bundle: ExportResult.Success = data.getParcelableExtra(EXTRA_EXPORTED_SUCCESS)
                 var videoUrls = bundle.videoList.map { video -> video.fileUri.toString() }
 
                 val map = Arguments.createMap()
@@ -50,6 +51,10 @@ class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
                 map.putArray("urls", Arguments.fromArray(videoUrls.toTypedArray()))
                 if (cache.hasPromise("result")) {
                     cache.resolvePromise("result", map)
+                }
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                if (cache.hasPromise("result")) {
+                    cache.rejectPromise("result", "canceled")
                 }
             } else {
                 if (cache.hasPromise("result")) {

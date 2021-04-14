@@ -6,7 +6,6 @@ import com.banuba.sdk.audiobrowser.di.AudioBrowserKoinModule
 import com.banuba.sdk.effectplayer.adapter.BanubaEffectPlayerKoinModule
 import com.banuba.sdk.token.storage.TokenStorageKoinModule
 import com.facebook.react.ReactPackage
-import com.facebook.react.bridge.JavaScriptModule
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager

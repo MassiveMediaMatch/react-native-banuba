@@ -1,12 +1,12 @@
 package com.massivemedia.reactnativebanuba.videoeditor.data
 
 import android.net.Uri
-import com.massivemedia.reactnativebanuba.R
 import com.banuba.sdk.core.effects.IEffectDrawable
 import com.banuba.sdk.core.ui.Speed
 import com.banuba.sdk.effects.ve.time.speed.RapidEffect
 import com.banuba.sdk.effects.ve.time.speed.SlowMotionEffect
 import com.banuba.sdk.ve.effects.EditorEffectProvider
+import com.massivemedia.reactnativebanuba.R
 
 sealed class TimeEffects : EditorEffectProvider<IEffectDrawable> {
 
