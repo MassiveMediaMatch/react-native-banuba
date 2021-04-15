@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { View, Text, Button } from 'react-native'
-import RNBanubaModule from 'react-native-banuba'
+import RNBanubaModule, { Result } from 'react-native-banuba'
 
 const App = () => {
   useEffect(() => {
@@ -10,7 +10,7 @@ const App = () => {
 
   const onSubmit = async () => {
     try {
-      const data = await RNBanubaModule.startEditor()
+      const data: Result = await RNBanubaModule.startEditor()
       console.log('Created a new video', data)
     } catch (e) {
       console.error(e)
