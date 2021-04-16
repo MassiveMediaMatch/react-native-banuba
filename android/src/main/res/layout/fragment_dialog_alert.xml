@@ -39,13 +39,11 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:textColor="@color/ablo"
             android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/alertNegativeButton"
             android:background="@drawable/bg_button_no"
-            android:textColor="@color/white"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />

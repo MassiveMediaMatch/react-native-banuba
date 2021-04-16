@@ -101,7 +101,7 @@
         <item name="gallery_item_corner_radius">4dp</item>
         <item name="gallery_item_margin">2dp</item>
         <item name="gallery_icon_back">@drawable/ic_nav_back_arrow</item>
-        <item name="gallery_album_divider_color">@color/b_primary</item>
+        <item name="gallery_album_divider_color">@color/b_background</item>
         <!---->
 
 
@@ -404,15 +404,29 @@
     </style>
 
     <!-- Style for effects (filters and masks) list label. As default it's visibility is gone -->
-    <style name="CustomCameraEffectLabelStyle" parent="CameraEffectLabelStyle" />
+    <style name="CustomCameraEffectLabelStyle" parent="CameraEffectLabelStyle">]
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextEffectItemNormalWhite" parent="Font.Regular.10">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextEffectItemNormalActiveNow" parent="Font.Regular.10">
+        <item name="android:textColor">@color/b_primary</item>
+    </style>
 
     <!-- Style for effects (filters and masks) list items -->
     <style name="CustomCameraEffectsItemStyle" parent="CameraEffectsItemStyle">
         <item name="corner_radius">4dp</item>
+        <item name="normal_appearance">@style/TextEffectItemNormalWhite</item>
+        <item name="active_appearance">@style/TextEffectItemNormalActiveNow</item>
     </style>
 
     <!-- Style for effects (filters and masks) RecyclerView -->
-    <style name="CustomCameraEffectsRecyclerStyle" parent="CameraEffectsRecyclerStyle" />
+    <style name="CustomCameraEffectsRecyclerStyle" parent="CameraEffectsRecyclerStyle">
+        <item name="android:background">@color/black</item>
+    </style>
 
     <!-- Style for the label of speed options. It's visibility is gone as default -->
     <style name="CustomCameraSpeedPickerLabelStyle" parent="CameraSpeedPickerLabelStyle" />
@@ -495,19 +509,19 @@
     </style>
 
     <style name="CameraDialogNormalButton">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">#55000000</item>
     </style>
 
     <style name="EditorDialogPositiveButton">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/ablo</item>
     </style>
 
     <style name="EditorDialogNegativeButton">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="EditorDialogNormalButton">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">#55000000</item>
     </style>
 
     <!--Editor Styles-->
@@ -587,7 +601,11 @@
 
     <style name="CustomEditorVisualAndTimeEffectsRecyclerStyle" parent="EditorVisualAndTimeEffectsRecyclerStyle" />
 
-    <style name="CustomEditorEffectLutItemStyle" parent="EditorEffectLutItemStyle" />
+    <style name="CustomEditorEffectLutItemStyle" parent="EditorEffectLutItemStyle">
+        <item name="normal_appearance">@style/TextEffectItemNormalWhite</item>
+        <item name="active_appearance">@style/TextEffectItemNormalActiveNow</item>
+        <item name="label_position">below_preview</item>
+    </style>
 
     <style name="CustomEditorEffectVisualStyle" parent="EditorEffectVisualStyle" />
 
@@ -595,7 +613,9 @@
 
     <style name="CustomEditorEffectMaskStyle" parent="EditorMaskEffectStyle" />
 
-    <style name="CustomEditorColorEffectsLabelStyle" parent="EditorColorEffectsLabelStyle" />
+    <style name="CustomEditorColorEffectsLabelStyle" parent="EditorColorEffectsLabelStyle" >]
+        <item name="android:textColor">@color/white</item>
+    </style>
 
     <style name="CustomEditorColorEffectsRecyclerStyle" parent="EditorColorEffectsRecyclerStyle" />
 
@@ -653,7 +673,7 @@
     </style>
 
     <style name="CustomGalleryAlbumTitleTextStyle" parent="GalleryAlbumTitleTextStyle">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/b_primary</item>
         <item name="android:fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">18sp</item>
     </style>
@@ -880,7 +900,7 @@
     </style>
 
     <style name="CustomMusicEditorEqualizerThrobberStyle" parent="MusicEditorEqualizerThrobberStyle">
-        <item name="circle_width">2dp</item>
+        <item name="circle_width">4dp</item>
     </style>
     <!---->
 
