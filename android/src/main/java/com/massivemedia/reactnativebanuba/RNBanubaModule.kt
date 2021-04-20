@@ -1,6 +1,7 @@
 package com.massivemedia.reactnativebanuba
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.banuba.sdk.cameraui.domain.MODE_RECORD_VIDEO
@@ -20,6 +21,14 @@ class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
         return hashMapOf()
     }
 
+    @ReactMethod
+    fun setTokens(videoEditorToken: String, effectToken: String) {
+        val sharedPref = currentActivity?.getSharedPreferences("banuba",Context.MODE_PRIVATE)
+        var editor = sharedPref?.edit()
+        editor?.putString("banuba_video_editor_token",videoEditorToken)
+        editor?.putString("banuba_effect_token",effectToken)
+        editor?.apply()
+    }
 
     @ReactMethod
     fun startEditor(promise: Promise) {

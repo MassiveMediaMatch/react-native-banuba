@@ -2,7 +2,6 @@
     <string name="app_name">Banuba VE SDK Integration sample</string>
     <!-- VIDEO EDITOR TOKEN -->
     <!-- Please contact Banuba https://www.banuba.com/video-editor-sdk to get this token -->
-    <string name="video_editor_token">j468B3S38YMa1ggmVlk+eixK7fK+1u0DuoAruXXiLp1kBNVx3itLv94Te1eVTAjYzgLTORexzjBxlPY0eq222mdxQPF+iLqgmVpWrC4lBXiEByrb5VpUqsFxaM/K9LLWDiI0bdQWeTy8YYulKgmPXrY=</string>
 
     <!-- Effects -->
     <!-- Time Effects -->

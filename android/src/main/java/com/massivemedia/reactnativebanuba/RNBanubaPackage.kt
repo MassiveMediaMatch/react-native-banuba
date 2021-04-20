@@ -24,7 +24,6 @@ class RNBanubaPackage(application: Application) : ReactPackage {
                     TokenStorageKoinModule().module,
                     VideoEditorKoinModule().module,
                     AudioBrowserKoinModule().module, // use this module only if you bought it
-                    BanubaEffectPlayerKoinModule().module
             )
         }
     }

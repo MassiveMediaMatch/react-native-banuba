@@ -5,13 +5,13 @@ import com.banuba.example.integrationapp.videoeditor.di.RemoteVideoEditorTokenPr
 import com.banuba.sdk.audiobrowser.domain.AudioBrowserMusicProvider
 import com.banuba.sdk.cameraui.data.CameraRecordingAnimationProvider
 import com.banuba.sdk.cameraui.data.CameraTimerStateProvider
-import com.banuba.sdk.core.AREffectPlayerProvider
-import com.banuba.sdk.core.HardwareClassProvider
-import com.banuba.sdk.core.SimpleEffectPlayerManager
+import com.banuba.sdk.core.*
 import com.banuba.sdk.core.domain.TrackData
-import com.banuba.sdk.core.supportsFaceAR
+import com.banuba.sdk.core.licence.LicenseManager
 import com.banuba.sdk.core.ui.ContentFeatureProvider
 import com.banuba.sdk.effectplayer.adapter.BanubaAREffectPlayerProvider
+import com.banuba.sdk.effectplayer.adapter.BanubaClassFactory
+import com.banuba.sdk.effectplayer.adapter.BanubaLicenseManager
 import com.banuba.sdk.token.storage.TokenProvider
 import com.banuba.sdk.ve.effects.EditorEffects
 import com.banuba.sdk.ve.effects.WatermarkProvider
@@ -28,6 +28,7 @@ import com.massivemedia.reactnativebanuba.videoeditor.impl.IntegrationAppWaterma
 import com.massivemedia.reactnativebanuba.videoeditor.impl.IntegrationTimerStateProvider
 import org.koin.core.definition.BeanDefinition
 import org.koin.core.qualifier.named
+import org.koin.android.ext.koin.androidContext
 
 /**
  * All dependencies mentioned in this module will override default
@@ -105,7 +106,7 @@ class VideoEditorKoinModule : FlowEditorModule() {
     override val effectPlayerManager: BeanDefinition<AREffectPlayerProvider> =
             single(override = true) {
                 val hardwareClass = get<HardwareClassProvider>().provideHardwareClass()
-                val veToken = RemoteVideoEditorTokenProvider().getToken()
+                val veToken = RemoteVideoEditorTokenProvider(androidContext()).getToken()
                 if (hardwareClass.supportsFaceAR) {
                     BanubaAREffectPlayerProvider(
                             mediaSizeProvider = get(),
@@ -124,6 +125,24 @@ class VideoEditorKoinModule : FlowEditorModule() {
             createdAtStart = true,
             override = true
     ) {
-        RemoteFaceArTokenProvider()
+        RemoteFaceArTokenProvider(androidContext())
+    }
+
+    override val utilityManager: BeanDefinition<IUtilityManager> = single(override = true) {
+        val hardwareClass = get<HardwareClassProvider>().provideHardwareClass()
+        if (hardwareClass.supportsFaceAR) {
+            BanubaClassFactory.createUtilityManager(
+                    context = get(),
+                    faceArToken = get(named("faceArToken")),
+            )
+        } else {
+            EmptyUtilityManager()
+        }
+    }
+
+    val abloLicenseManager: BeanDefinition<LicenseManager> = single(override = true) {
+        BanubaLicenseManager(
+                token = get(named("faceArToken"))
+        )
     }
 }
