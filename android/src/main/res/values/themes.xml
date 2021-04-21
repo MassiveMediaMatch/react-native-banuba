@@ -640,7 +640,12 @@
 
     <style name="CustomStickersRetryBtnStyle" />
 
-    <style name="CustomStickersSearchStyle" parent="StickersSearchStyle" />
+    <style name="CustomStickersSearchStyle" parent="StickersSearchStyle">
+        <item name="editor_search_background">@color/b_primary</item>
+        <item name="editor_search_hint_color">@color/white50</item>
+        <item name="editor_search_background_tint">@color/big_stone_a90</item>
+        <item name="editor_search_icon">@drawable/ic_search</item>
+    </style>
 
     <!--Stickers & text editor styles-->
     <style name="CustomTimelineTextViewStyle" parent="TimelineTextViewStyle" />
