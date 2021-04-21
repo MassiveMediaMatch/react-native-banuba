@@ -3,7 +3,7 @@
     "minVideoDuration": 3000,
     "maxVideoDuration": 60000,
     "supportsTimeEffects": true,
-    "supportsVisualEffects": true,
+    "supportsVisualEffects": false,
     "supportsMusicMixer": false,
     "supportsCoverImage": false,
     "banubaColorEffectsAssetsPath": "luts",
