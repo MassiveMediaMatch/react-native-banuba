@@ -5,6 +5,6 @@ interface VideoEditorInterface {
 }
 export interface Result {
   preview:string,
-  urls: string[]
+  url: string
 }
 export default NativeModules.RNBanubaModule as VideoEditorInterface;

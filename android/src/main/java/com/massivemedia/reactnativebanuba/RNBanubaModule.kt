@@ -50,14 +50,11 @@ class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
 
     override fun onActivityResult(activity: Activity?, requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1) {
-            Log.w("result", resultCode.toString() + " = " + data.toString())
             if (resultCode == Activity.RESULT_OK && data !== null) {
                 var bundle: ExportResult.Success = data.getParcelableExtra(EXTRA_EXPORTED_SUCCESS)
-                var videoUrls = bundle.videoList.map { video -> video.fileUri.toString() }
-
                 val map = Arguments.createMap()
                 map.putString("preview", bundle.preview.toString())
-                map.putArray("urls", Arguments.fromArray(videoUrls.toTypedArray()))
+                map.putString("url", bundle.videoList[1].fileUri.toString())
                 if (cache.hasPromise("result")) {
                     cache.resolvePromise("result", map)
                 }
