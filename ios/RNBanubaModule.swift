@@ -5,38 +5,44 @@
 //  Copyright © 2021 MassiveMedia. All rights reserved.
 //
 
-import Foundation
 import React
+import UIKit
 import BanubaVideoEditorSDK
 import BanubaMusicEditorSDK
 import BanubaOverlayEditorSDK
 
 @objc(RNBanubaModule)
 class RNBanubaModule: NSObject, RCTBridgeModule {
-  @objc
-  func constantsToExport() -> [AnyHashable : Any]! {
-    return ["count": 1]
-  }
-
-  @objc
+  
+  private var videoEditorSDK: BanubaVideoEditor?
+  private var resolver: RCTPromiseResolveBlock?
+  private var rejecter: RCTPromiseRejectBlock?
+  
   static func requiresMainQueueSetup() -> Bool {
     return true
   }
-    
-@objc func openVideoEditor() {
-    guard let presentedVC = RCTPresentedViewController() else {
-      return
-    }
-    
+  
+  // MARK: - RCTBridgeModule
+  static func moduleName() -> String! {
+    return "RNBanubaModule"
+  }
+  
+  @objc func startEditorWithTokens(_ videoEditorToken:String, effectToken:String, resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+    self.resolver = resolve
+    self.rejecter = reject
     let config = createVideoEditorConfiguration()
-    let videoEditor = BanubaVideoEditor(
-      token: "place AR token here",
-      effectsToken: "j468B3S38YMa1ggmVlk+eixK7fK+1u0DuoAruXXiLp1kBNVx3itLv94Te1eVTAjYzgLTORexzjBxlPY0eq222mdxQPF+iLqgmVpWrC4lBXiEByrb5VpUqsFxaM/K9LLWDiI0bdQWeTy8YYulKgmPXrY=",
+    videoEditorSDK = BanubaVideoEditor(
+      token: videoEditorToken,
+      effectsToken: effectToken,
       configuration: config,
       externalViewControllerFactory: nil
     )
+    videoEditorSDK?.delegate = self
     DispatchQueue.main.async {
-      videoEditor.presentVideoEditor(from: presentedVC, animated: true, completion: nil)
+      guard let presentedVC = RCTPresentedViewController() else {
+        return
+      }
+      self.videoEditorSDK?.presentVideoEditor(from: presentedVC, animated: true, completion: nil)
     }
   }
   
@@ -45,9 +51,40 @@ class RNBanubaModule: NSObject, RCTBridgeModule {
     // Do customization here
     return config
   }
-    
-    // MARK: - RCTBridgeModule
-     static func moduleName() -> String! {
-       return "RNBanubaModule"
-     }
+  
+
+  func exportVideo() {
+      let manager = FileManager.default
+      let videoURL = manager.temporaryDirectory.appendingPathComponent("tmp.mov")
+      if manager.fileExists(atPath: videoURL.path) {
+        try? manager.removeItem(at: videoURL)
+      }
+      
+    videoEditorSDK?.exportVideoWithCoverImage(fileURL: videoURL, completion: { (success, error, cover) in
+      DispatchQueue.main.async {
+        // Clear video editor session data
+        self.videoEditorSDK?.clearSessionData()
+        let dictRes: [String: String] = [
+          "preview": "", // cover is a UIImage, how do i get a path from this?
+          "url": videoURL.absoluteString,
+        ]
+        self.resolver?(dictRes)
+        self.videoEditorSDK = nilRNBanubaModule
+      }
+    })
+  }
+}
+extension RNBanubaModule: BanubaVideoEditorDelegate {
+  func videoEditorDidCancel(_ videoEditor: BanubaVideoEditor) {
+    videoEditor.dismissVideoEditor(animated: true) { [weak self] in
+      self?.videoEditorSDK = nil
+      self?.rejecter?("cancel", "User cancelled video editor", nil);
+    }
+  }
+  
+  func videoEditorDone(_ videoEditor: BanubaVideoEditor) {
+    videoEditor.dismissVideoEditor(animated: true) { [weak self] in
+      self?.exportVideo()
+    }
+  }
 }
