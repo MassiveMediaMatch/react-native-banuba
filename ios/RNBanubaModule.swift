@@ -69,7 +69,7 @@ class RNBanubaModule: NSObject, RCTBridgeModule {
           "url": videoURL.absoluteString,
         ]
         self.resolver?(dictRes)
-        self.videoEditorSDK = nilRNBanubaModule
+        self.videoEditorSDK = nil
       }
     })
   }
