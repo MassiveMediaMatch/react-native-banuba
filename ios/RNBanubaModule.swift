@@ -27,7 +27,7 @@ class RNBanubaModule: NSObject, RCTBridgeModule {
     return "RNBanubaModule"
   }
   
-  @objc func startEditorWithTokens(_ videoEditorToken:String, effectToken:String, resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+  @objc func startEditorWithTokens(_ videoEditorToken:String, effectToken:String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
     self.resolver = resolve
     self.rejecter = reject
     let config = createVideoEditorConfiguration()
