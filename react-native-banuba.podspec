@@ -18,20 +18,24 @@ Pod::Spec.new do |s|
 
   s.dependency 'React'
   s.dependency 'BanubaARCloudSDK'
+  s.dependency 'BanubaVideoEditorSDK'
   s.dependency 'BanubaAudioBrowserSDK'
-  s.dependency 'BanubaEffectPlayer'
   s.dependency 'BanubaMusicEditorSDK'
   s.dependency 'BanubaOverlayEditorSDK'
+  s.dependency 'BanubaEffectPlayer'
   s.dependency 'BanubaSDK'
-  s.dependency 'BanubaVideoEditorSDK'
+  s.dependency 'BanubaSDKSimple'
+  s.dependency 'BanubaSDKServicing'
   s.dependency 'VideoEditor'
-
-  s.vendored_frameworks = "BanubaARCloudSDK.xcframework",
-                          "BanubaAudioBrowserSDK.xcframework",
+  
+  s.vendored_frameworks = "BanubaARCloudSDK.framework",
+                          "BanubaAudioBrowserSDK.framework",
+                          "BanubaMusicEditorSDK.framework",
+                          "BanubaOverlayEditorSDK.framework",
+                          "BanubaSDK.framework",
+                          "BanubaSDKSimple.framework",
                           "BanubaEffectPlayer.framework",
-                          "BanubaMusicEditorSDK.xcframework",
-                          "BanubaOverlayEditorSDK.xcframework",
-                          "BanubaSdk.xcframework",
-                          "BanubaVideoEditorSDK.xcframework",
-                          "VideoEditor.xcframework"
+                          "BanubaSDKServicing.framework",
+                          "BanubaVideoEditorSDK.framework",
+                          "VideoEditor.framework"
 end

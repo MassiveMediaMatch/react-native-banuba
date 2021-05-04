@@ -7,9 +7,9 @@
 
 import React
 import UIKit
-import BanubaVideoEditorSDK
 import BanubaMusicEditorSDK
 import BanubaOverlayEditorSDK
+import BanubaVideoEditorSDK
 
 @objc(RNBanubaModule)
 class RNBanubaModule: NSObject, RCTBridgeModule {
@@ -34,6 +34,7 @@ class RNBanubaModule: NSObject, RCTBridgeModule {
     videoEditorSDK = BanubaVideoEditor(
       token: videoEditorToken,
       effectsToken: effectToken,
+	  isFaceAREnabled: false,
       configuration: config,
       externalViewControllerFactory: nil
     )
