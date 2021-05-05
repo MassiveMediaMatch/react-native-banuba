@@ -22,8 +22,8 @@ Pod::Spec.new do |s|
   s.dependency 'BanubaAudioBrowserSDK'
   s.dependency 'BanubaMusicEditorSDK'
   s.dependency 'BanubaOverlayEditorSDK'
-  s.dependency 'BanubaEffectPlayer'
-  s.dependency 'BanubaSDK'
+  # s.dependency 'BanubaEffectPlayer'
+  # s.dependency 'BanubaSDK'
   s.dependency 'BanubaSDKSimple'
   s.dependency 'BanubaSDKServicing'
   s.dependency 'VideoEditor'
@@ -32,10 +32,10 @@ Pod::Spec.new do |s|
                           "BanubaAudioBrowserSDK.framework",
                           "BanubaMusicEditorSDK.framework",
                           "BanubaOverlayEditorSDK.framework",
-                          "BanubaSDK.framework",
-                          "BanubaSDKSimple.framework",
-                          "BanubaEffectPlayer.framework",
-                          "BanubaSDKServicing.framework",
                           "BanubaVideoEditorSDK.framework",
+                          #"BanubaEffectPlayer.framework",
+                          #"BanubaSDK.framework",
+                          "BanubaSDKSimple.framework",
+                          "BanubaSDKServicing.framework",
                           "VideoEditor.framework"
 end
