@@ -100,7 +100,7 @@ class VideoEditorKoinModule : FlowEditorModule() {
             }
 
     override val coverProvider: BeanDefinition<CoverProvider> = single(override = true) {
-        CoverProvider.EXTENDED
+        CoverProvider.NONE
     }
 
     override val effectPlayerManager: BeanDefinition<AREffectPlayerProvider> =
