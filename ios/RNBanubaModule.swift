@@ -116,6 +116,10 @@ extension RNBanubaModule: BanubaVideoEditorDelegate {
 
 private func createVideoEditorConfiguration() -> VideoEditorConfig {
 	var config = VideoEditorConfig()
+	
+	var featureConfiguration = config.featureConfiguration
+	featureConfiguration.supportsTrimRecordedVideo = true
+	config.updateFeatureConfiguration(featureConfiguration: featureConfiguration)
   
 	// Do customization here
 	config.recorderConfiguration = updateRecorderConfiguration(config.recorderConfiguration)
@@ -147,42 +151,54 @@ private func updateRecorderConfiguration(_ configuration: RecorderConfiguration)
 		imageConfiguration: ImageConfiguration(imageName: "ic-beauty"),
 		selectedImageConfiguration: ImageConfiguration(imageName: "ic-beauty-on")
 	  ),
-//	  AdditionalEffectsButtonConfiguration(
-//		identifier: .sound,
-//		imageConfiguration: ImageConfiguration(imageName: "ic_audio_off"),
-//		selectedImageConfiguration: ImageConfiguration(imageName: "ic_audio_on"),
-//		position: .bottom
-//	  ),
-//	  AdditionalEffectsButtonConfiguration(
-//		identifier: .effects,
-//		imageConfiguration: ImageConfiguration(imageName: "ic_filters_off"),
-//		selectedImageConfiguration: ImageConfiguration(imageName: "ic_filters_on")
-//	  ),
-//	  AdditionalEffectsButtonConfiguration(
-//		identifier: .masks,
-//		imageConfiguration: ImageConfiguration(imageName: "ic_masks_off"),
-//		selectedImageConfiguration: ImageConfiguration(imageName: "ic_masks_on")
-//	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .sound,
+		imageConfiguration: ImageConfiguration(imageName: "ic-mic"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-mic-off"),
+		position: .bottom
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .effects,
+		imageConfiguration: ImageConfiguration(imageName: "ic-filter"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-filter-on")
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .masks,
+		imageConfiguration: ImageConfiguration(imageName: "ic-mask"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-mask-on")
+	  ),
 	  AdditionalEffectsButtonConfiguration(
 		identifier: .toggle,
 		imageConfiguration: ImageConfiguration(imageName: "ic-flip-camera"),
 		selectedImageConfiguration: ImageConfiguration(imageName: "ic-flip-camera")
+//		title: TextButtonConfiguration(
+//			style: TextConfiguration(
+//				font: UIFont.systemFont(ofSize: 12.0),
+//				color: UIColor(red: 0, green: 0, blue: 0).withAlphaComponent(0.25)
+//			),
+//			text: "Flip"
+//		),
+//		titlePosition: .bottom,
+//		width: 100,
+//		height: 100,
+//		position: .top,
+//		imageTitleSpacing: nil
 	  ),
 	  AdditionalEffectsButtonConfiguration(
 		identifier: .flashlight,
 		imageConfiguration: ImageConfiguration(imageName: "ic-flash-off"),
-		selectedImageConfiguration: ImageConfiguration(imageName: "ic-flash-on")
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-flash")
 	  ),
 	  AdditionalEffectsButtonConfiguration(
 		identifier: .timer,
 		imageConfiguration: ImageConfiguration(imageName: "ic-timer-off"),
 		selectedImageConfiguration: ImageConfiguration(imageName: "ic-timer-3s")
 	  ),
-//	  AdditionalEffectsButtonConfiguration(
-//		identifier: .speed,
-//		imageConfiguration: ImageConfiguration(imageName: "ic_speed_1x"),
-//		selectedImageConfiguration: nil
-//	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .speed,
+		imageConfiguration: ImageConfiguration(imageName: "ic-speed"),
+		selectedImageConfiguration: nil
+	  ),
 	  AdditionalEffectsButtonConfiguration(
 		identifier: .muteSound,
 		imageConfiguration: ImageConfiguration(imageName: "ic-mic"),
@@ -222,40 +238,18 @@ private func updateRecorderConfiguration(_ configuration: RecorderConfiguration)
 	configuration.recordButtonConfiguration.recordImageName = "ic-record"
 	configuration.recordButtonConfiguration.width = 72
 	configuration.recordButtonConfiguration.height = 72
-	configuration.recordButtonConfiguration.gradientColors = [UIColor(red: 255, green: 0, blue: 0).cgColor]
 	configuration.recordButtonConfiguration.circularTimeLineCaptureWidth = 3
 	configuration.recordButtonConfiguration.circularTimeLineIdleWidth = 3
 	configuration.recordButtonConfiguration.idleStrokeColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.3).cgColor
 	configuration.recordButtonConfiguration.strokeColor = UIColor(red: 255, green: 227, blue: 23).cgColor
 	configuration.recordButtonConfiguration.spacingBetweenButtonAndCircular = 9
-	configuration.recordButtonConfiguration.recordingScale = 1.0
+//	configuration.recordButtonConfiguration.recordingScale = 1.0
 
 	configuration.timeLineConfiguration.isTimeLineHidden = false
 	configuration.timeLineConfiguration.timeLineBackgroundColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.5)
 //	configuration.timeLineConfiguration.progressBarColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.5)
 	configuration.timeLineConfiguration.itemsCornerRadius = 4
 	configuration.timeLineConfiguration.progressBarSelectColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
-
-//	let nextButtonTextConfiguration = TextConfiguration(
-//	  kern: 1.0,
-//	  font: UIFont.systemFont(ofSize: 12.0),
-//	  color: UIColor.white
-//	)
-//	let inactiveNextButtonTextConfiguration = TextConfiguration(
-//	  kern: 1.0,
-//	  font: UIFont.systemFont(ofSize: 12.0),
-//	  color: UIColor.white.withAlphaComponent(0.5)
-//	)
-//	configuration.saveButton = SaveButtonConfiguration(
-//	  textConfiguration: nextButtonTextConfiguration,
-//	  inactiveTextConfiguration: inactiveNextButtonTextConfiguration,
-//	  text: "NEXT",
-//	  width: 68.0,
-//	  height: 41.0,
-//	  cornerRadius: 4.0,
-//	  backgroundColor: UIColor(red: 6, green: 188, blue: 193),
-//	  inactiveBackgroundColor: UIColor(red: 6, green: 188, blue: 193).withAlphaComponent(0.5)
-//	)
 	
 	configuration.galleryButton.borderColor = UIColor.white.cgColor
 	configuration.galleryButton.borderWidth = 1
@@ -269,7 +263,68 @@ private func updateRecorderConfiguration(_ configuration: RecorderConfiguration)
 private func updateEditorConfiguration(_ configuration: EditorConfiguration) -> EditorConfiguration {
 	var configuration = configuration
 
+	configuration.backButton = BackButtonConfiguration(imageConfiguration: ImageConfiguration(imageName: "ic-back-arrow"))
 	configuration.isVideoCoverSelectionEnabled = false
+	configuration.additionalEffectsButtons = [
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .beauty,
+		imageConfiguration: ImageConfiguration(imageName: "ic-beauty"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-beauty-on")
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .sound,
+		imageConfiguration: ImageConfiguration(imageName: "ic-mic"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-mic-off"),
+		position: .bottom
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .effects,
+		imageConfiguration: ImageConfiguration(imageName: "ic-filter"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-filter-on")
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .masks,
+		imageConfiguration: ImageConfiguration(imageName: "ic-mask"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-mask-on")
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .toggle,
+		imageConfiguration: ImageConfiguration(imageName: "ic-flip-camera"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-flip-camera")
+//		title: TextButtonConfiguration(
+//			style: TextConfiguration(
+//				font: UIFont.systemFont(ofSize: 12.0),
+//				color: UIColor(red: 0, green: 0, blue: 0).withAlphaComponent(0.25)
+//			),
+//			text: "Flip"
+//		),
+//		titlePosition: .bottom,
+//		width: 100,
+//		height: 100,
+//		position: .top,
+//		imageTitleSpacing: nil
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .flashlight,
+		imageConfiguration: ImageConfiguration(imageName: "ic-flash-off"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-flash")
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .timer,
+		imageConfiguration: ImageConfiguration(imageName: "ic-timer-off"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-timer-3s")
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .speed,
+		imageConfiguration: ImageConfiguration(imageName: "ic-speed"),
+		selectedImageConfiguration: nil
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+		identifier: .muteSound,
+		imageConfiguration: ImageConfiguration(imageName: "ic-mic"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic_mic_off")
+	  ),
+	]
 	
 	return configuration
   }
@@ -286,4 +341,4 @@ func updateAlertViewConfiguration(_ configuration: BanubaVideoEditorSDK.AlertVie
 	config.titleFont = UIFont.boldSystemFont(ofSize: 20.0)
 	config.buttonsFont = UIFont.systemFont(ofSize: 20.0)
 	return config
-  }
+}
