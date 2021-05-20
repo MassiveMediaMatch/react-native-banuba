@@ -39,6 +39,16 @@ class RNBanubaModule: NSObject, RCTBridgeModule {
       externalViewControllerFactory: nil
     )
     videoEditorSDK?.delegate = self
+	
+	// load asset if any is specified
+//	let assetURL: String? = "/var/mobile/Containers/Data/Application/B6E03023-A4EF-4107-95DA-6DF60471E135/tmp/16178188-6689-4F55-865E-F3822CF1397A.MOV"
+//	if (assetURL != nil) {
+//		let videoURL = URL(fileURLWithPath: assetURL!)
+//		if (videoURL != nil) {
+//			videoEditorSDK?.asset = AVAsset(url: videoURL)
+//		}
+//	}
+	
     DispatchQueue.main.async {
       guard let presentedVC = RCTPresentedViewController() else {
         return
@@ -46,27 +56,6 @@ class RNBanubaModule: NSObject, RCTBridgeModule {
       self.videoEditorSDK?.presentVideoEditor(from: presentedVC, animated: true, completion: nil)
     }
   }
-
-//  func exportVideo() {
-//      let manager = FileManager.default
-//      let videoURL = manager.temporaryDirectory.appendingPathComponent("tmp.mov")
-//      if manager.fileExists(atPath: videoURL.path) {
-//        try? manager.removeItem(at: videoURL)
-//      }
-//
-//    videoEditorSDK?.exportVideoWithCoverImage(fileURL: videoURL, completion: { (success, error, cover) in
-//      DispatchQueue.main.async {
-//        // Clear video editor session data
-//        self.videoEditorSDK?.clearSessionData()
-//        let dictRes: [String: String] = [
-//          "preview": "", // cover is a UIImage, how do i get a path from this?
-//          "url": videoURL.absoluteString,
-//        ]
-//        self.resolver?(dictRes)
-//        self.videoEditorSDK = nil
-//      }
-//    })
-//  }
 	
 	func exportVideo() {
 		let manager = FileManager.default
@@ -81,17 +70,18 @@ class RNBanubaModule: NSObject, RCTBridgeModule {
 		  useHEVCCodecIfPossible: true,
 		  watermarkConfiguration: nil
 		)
-		videoEditorSDK?.exportVideos(using: [exportConfiguration], completion: { (success, error) in
-		  DispatchQueue.main.async {
-			// Clear video editor session data
-			self.videoEditorSDK?.clearSessionData()
-			let dictRes: [String: String] = [
-			  "preview": "", // cover is a UIImage, how do i get a path from this?
-			  "url": videoURL.absoluteString,
-			]
-			self.resolver?(dictRes)
-			self.videoEditorSDK = nil
-		  }
+		
+		videoEditorSDK?.exportVideo(fileURL: videoURL, completion: { (success, error) in
+			DispatchQueue.main.async {
+				// Clear video editor session data
+				self.videoEditorSDK?.clearSessionData()
+				let dictRes: [String: String] = [
+					"preview": "", // cover is a UIImage, how do i get a path from this?
+					"url": videoURL.absoluteString,
+				]
+				self.resolver?(dictRes)
+				self.videoEditorSDK = nil
+			}
 		})
 	  }
 }
@@ -119,7 +109,11 @@ private func createVideoEditorConfiguration() -> VideoEditorConfig {
 	
 	var featureConfiguration = config.featureConfiguration
 	featureConfiguration.supportsTrimRecordedVideo = true
+	featureConfiguration.isAudioBrowserEnabled = false
+	featureConfiguration.isMuteCameraAudioEnabled = true
 	config.updateFeatureConfiguration(featureConfiguration: featureConfiguration)
+	
+	config.isHandfreeEnabled = true
   
 	// Do customization here
 	config.recorderConfiguration = updateRecorderConfiguration(config.recorderConfiguration)
@@ -129,13 +123,15 @@ private func createVideoEditorConfiguration() -> VideoEditorConfig {
 //	config.musicEditorConfiguration = updateMusicEditorConfigurtion(config.musicEditorConfiguration)
 //	config.overlayEditorConfiguration = updateOverlayEditorConfiguraiton(config.overlayEditorConfiguration)
 //	config.textEditorConfiguration = updateTextEditorConfiguration(config.textEditorConfiguration)
-//	config.speedSelectionConfiguration = updateSpeedSelectionConfiguration(config.speedSelectionConfiguration)
-//	config.trimGalleryVideoConfiguration = updateTrimGalleryVideoConfiguration(config.trimGalleryVideoConfiguration)
-//	config.multiTrimConfiguration = updateMultiTrimConfiguration(config.multiTrimConfiguration)
-//	config.singleTrimConfiguration = updateSingleTrimConfiguration(config.singleTrimConfiguration)
+	config.speedSelectionConfiguration = updateSpeedSelectionConfiguration(config.speedSelectionConfiguration)
+	config.handsfreeConfiguration = updateHandsFreeConfiguration(config.handsfreeConfiguration!)
+	config.trimGalleryVideoConfiguration = updateTrimGalleryVideoConfiguration(config.trimGalleryVideoConfiguration)
+	config.multiTrimConfiguration = updateMultiTrimConfiguration(config.multiTrimConfiguration)
+	config.singleTrimConfiguration = updateSingleTrimConfiguration(config.singleTrimConfiguration)
 //	config.filterConfiguration = updateFilterConfiguration(config.filterConfiguration)
 	config.alertViewConfiguration = updateAlertViewConfiguration(config.alertViewConfiguration)
 //	config.fullScreenActivityConfiguration = updateFullScreenActivityConfiguration(config.fullScreenActivityConfiguration)
+	config.gifPickerConfiguration = updateGifPickerConfiguration(config.gifPickerConfiguration)
   
   return config
 }
@@ -143,7 +139,7 @@ private func createVideoEditorConfiguration() -> VideoEditorConfig {
 private func updateRecorderConfiguration(_ configuration: RecorderConfiguration) -> RecorderConfiguration {
 	var configuration = configuration
 	
-	configuration.backButton = BackButtonConfiguration(imageConfiguration: ImageConfiguration(imageName: "ic-back-arrow"))
+	configuration.backButton = BackButtonConfiguration(imageConfiguration: ImageConfiguration(imageName: "ic-close"))
 	configuration.removeButtonImageName = "ic-undo"
 	configuration.additionalEffectsButtons = [
 	  AdditionalEffectsButtonConfiguration(
@@ -174,15 +170,15 @@ private func updateRecorderConfiguration(_ configuration: RecorderConfiguration)
 //		title: TextButtonConfiguration(
 //			style: TextConfiguration(
 //				font: UIFont.systemFont(ofSize: 12.0),
-//				color: UIColor(red: 0, green: 0, blue: 0).withAlphaComponent(0.25)
+//				color: UIColor(red: 255, green: 255, blue: 255).withAlphaComponent(1)
 //			),
 //			text: "Flip"
-//		),
+//		)
 //		titlePosition: .bottom,
 //		width: 100,
 //		height: 100,
 //		position: .top,
-//		imageTitleSpacing: nil
+//		imageTitleSpacing: 0
 	  ),
 	  AdditionalEffectsButtonConfiguration(
 		identifier: .flashlight,
@@ -279,8 +275,13 @@ private func updateEditorConfiguration(_ configuration: EditorConfiguration) -> 
 	  ),
 	  AdditionalEffectsButtonConfiguration(
 		identifier: .effects,
-		imageConfiguration: ImageConfiguration(imageName: "ic-filter"),
-		selectedImageConfiguration: ImageConfiguration(imageName: "ic-filter-on")
+		imageConfiguration: ImageConfiguration(imageName: "ic-effects"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-effects-on")
+	  ),
+	  AdditionalEffectsButtonConfiguration(
+	    identifier: .sticker,
+	    imageConfiguration: ImageConfiguration(imageName: "ic-gifs"),
+	    selectedImageConfiguration: ImageConfiguration(imageName: "ic-gifs-on")
 	  ),
 	  AdditionalEffectsButtonConfiguration(
 		identifier: .masks,
@@ -288,36 +289,9 @@ private func updateEditorConfiguration(_ configuration: EditorConfiguration) -> 
 		selectedImageConfiguration: ImageConfiguration(imageName: "ic-mask-on")
 	  ),
 	  AdditionalEffectsButtonConfiguration(
-		identifier: .toggle,
-		imageConfiguration: ImageConfiguration(imageName: "ic-flip-camera"),
-		selectedImageConfiguration: ImageConfiguration(imageName: "ic-flip-camera")
-//		title: TextButtonConfiguration(
-//			style: TextConfiguration(
-//				font: UIFont.systemFont(ofSize: 12.0),
-//				color: UIColor(red: 0, green: 0, blue: 0).withAlphaComponent(0.25)
-//			),
-//			text: "Flip"
-//		),
-//		titlePosition: .bottom,
-//		width: 100,
-//		height: 100,
-//		position: .top,
-//		imageTitleSpacing: nil
-	  ),
-	  AdditionalEffectsButtonConfiguration(
-		identifier: .flashlight,
-		imageConfiguration: ImageConfiguration(imageName: "ic-flash-off"),
-		selectedImageConfiguration: ImageConfiguration(imageName: "ic-flash")
-	  ),
-	  AdditionalEffectsButtonConfiguration(
-		identifier: .timer,
-		imageConfiguration: ImageConfiguration(imageName: "ic-timer-off"),
-		selectedImageConfiguration: ImageConfiguration(imageName: "ic-timer-3s")
-	  ),
-	  AdditionalEffectsButtonConfiguration(
-		identifier: .speed,
-		imageConfiguration: ImageConfiguration(imageName: "ic-speed"),
-		selectedImageConfiguration: nil
+		identifier: .color,
+		imageConfiguration: ImageConfiguration(imageName: "ic-filter"),
+		selectedImageConfiguration: ImageConfiguration(imageName: "ic-filter-on")
 	  ),
 	  AdditionalEffectsButtonConfiguration(
 		identifier: .muteSound,
@@ -341,4 +315,124 @@ func updateAlertViewConfiguration(_ configuration: BanubaVideoEditorSDK.AlertVie
 	config.titleFont = UIFont.boldSystemFont(ofSize: 20.0)
 	config.buttonsFont = UIFont.systemFont(ofSize: 20.0)
 	return config
+}
+
+private func updateTrimGalleryVideoConfiguration(_ configuration: TrimGalleryVideoConfiguration) -> TrimGalleryVideoConfiguration {
+	var configuration = configuration
+
+	configuration.backButtonConfiguration = BackButtonConfiguration(imageConfiguration: ImageConfiguration(imageName: "ic-back-arrow"))
+//	configuration.playerControlConfiguration = PlayerControlConfiguration(
+//	  playButtonImageName: "ic_play",
+//	  pauseButtonImageName: "ic_trim_pause"
+//	)
+	
+
+//	configuration.galleryVideoPartsConfiguration.addGalleryVideoPartImageName = "add_video_part"
+//	configuration.deleteGalleryVideoPartButtonConfiguration = ImageButtonConfiguration(imageConfiguration: ImageConfiguration(imageName: "ic_delete_video_part"))
+
+	configuration.nextButtonConfiguration.backgroundColor = .clear
+	configuration.nextButtonConfiguration.textConfiguration.font = UIFont.boldSystemFont(ofSize: 14.0)
+	configuration.nextButtonConfiguration.textConfiguration.color = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+
+	configuration.editedTimeLabelConfiguration.errorColor = UIColor(red: 255, green: 0, blue: 0)
+	configuration.editedTimeLabelConfiguration.cornerRadius = 12
+	configuration.editedTimeLabelConfiguration.defaultColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
+	configuration.editedTimeLabelConfiguration.style.color = UIColor.white
+	configuration.editedTimeLabelConfiguration.textInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+
+	return configuration
+}
+
+private func updateMultiTrimConfiguration(_ configuration: MultiTrimConfiguration) -> MultiTrimConfiguration {
+	var configuration = configuration
+
+	configuration.backButton = BackButtonConfiguration(imageConfiguration: ImageConfiguration(imageName: "ic-back-arrow"))
+//	configuration.playerControlConfiguration = PlayerControlConfiguration(
+//	  playButtonImageName: "ic_play",
+//	  pauseButtonImageName: "ic_trim_pause"
+//	)
+
+	configuration.saveButton.backgroundColor = .clear
+	configuration.saveButton.textConfiguration.font = UIFont.boldSystemFont(ofSize: 14.0)
+	configuration.saveButton.textConfiguration.color = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+	
+	configuration.timeLimeConfiguration.progressBarColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+	configuration.timeLimeConfiguration.progressBarSelectColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+	
+	configuration.trimTimeLineConfiguration.trimControlsColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+
+	configuration.editedTimeLabelConfiguration.errorColor = UIColor(red: 255, green: 0, blue: 0)
+	configuration.editedTimeLabelConfiguration.cornerRadius = 12
+	configuration.editedTimeLabelConfiguration.defaultColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
+	configuration.editedTimeLabelConfiguration.style.color = UIColor.white
+	configuration.editedTimeLabelConfiguration.textInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+	
+//	configuration.rotateButton?.imageConfiguration.
+
+	return configuration
+}
+
+private func updateSingleTrimConfiguration(_ configuration: SingleTrimConfiguration) -> SingleTrimConfiguration {
+	var configuration = configuration
+
+	configuration.backButton = BackButtonConfiguration(imageConfiguration: ImageConfiguration(imageName: "ic-back-arrow"))
+//	configuration.playerControlConfiguration = PlayerControlConfiguration(
+//	  playButtonImageName: "ic_play",
+//	  pauseButtonImageName: "ic_trim_pause"
+//	)
+
+	configuration.saveButton.backgroundColor = .clear
+	configuration.saveButton.textConfiguration.font = UIFont.boldSystemFont(ofSize: 14.0)
+	configuration.saveButton.textConfiguration.color = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+
+	configuration.trimTimeLineConfiguration.trimControlsColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+
+	configuration.editedTimeLabelConfiguration.errorColor = UIColor(red: 255, green: 0, blue: 0)
+	configuration.editedTimeLabelConfiguration.cornerRadius = 12
+	configuration.editedTimeLabelConfiguration.defaultColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.5)
+	configuration.editedTimeLabelConfiguration.style.color = UIColor.white
+	configuration.editedTimeLabelConfiguration.textInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
+
+	return configuration
+}
+
+private func updateGifPickerConfiguration(_ configuration: GifPickerConfiguration) -> GifPickerConfiguration {
+	var configuration = configuration
+
+	return configuration
+}
+
+private func updateSpeedSelectionConfiguration(_ configuration: SpeedSelectionConfiguration) -> SpeedSelectionConfiguration {
+	var configuration = configuration
+
+	configuration.backButton = BackButtonConfiguration(imageConfiguration: ImageConfiguration(imageName: "ic-back-arrow"))
+	configuration.bottomViewBackgroundColor = UIColor.white
+	configuration.bottomViewCornerRadius = 16
+	configuration.hideScreenName = false
+	configuration.screenName.alignment = .left
+	configuration.screenName.color = UIColor(red: 29, green: 34, blue: 42)
+	configuration.screenName.font = UIFont.systemFont(ofSize: 20.0)
+	configuration.speedBarConfiguration.backgroundColor = UIColor.init(red: 230, green: 232, blue: 235)
+	configuration.speedBarConfiguration.cornerRadius = 8
+	configuration.speedBarConfiguration.selectorColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+	configuration.speedBarConfiguration.selectorTextColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
+	
+	return configuration
+}
+
+private func updateHandsFreeConfiguration(_ configuration: HandsfreeConfiguration) -> HandsfreeConfiguration {
+	var configuration = configuration
+
+	configuration.timerOptionBarConfiguration.backgroundColor = .white
+	configuration.timerOptionBarConfiguration.barCornerRadius = 8
+	configuration.timerOptionBarConfiguration.activeThumbAndLineColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+	configuration.timerOptionBarConfiguration.inactiveThumbAndLineColor = UIColor.init(red: 230, green: 232, blue: 235)
+	configuration.timerOptionBarConfiguration.switchOnTintColor = UIColor.init(red: 230, green: 232, blue: 235)
+	configuration.timerOptionBarConfiguration.buttonBackgroundColor = UIColor.init(red: 1, green: 207, blue: 151) // ablo green
+	configuration.timerOptionBarConfiguration.buttonCornerRadius = 24
+	configuration.timerOptionBarConfiguration.optionTextColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
+	configuration.timerOptionBarConfiguration.optionCornerRadius = 8
+	configuration.timerOptionBarConfiguration.sliderCornerRadius = 8
+	
+	return configuration
 }
