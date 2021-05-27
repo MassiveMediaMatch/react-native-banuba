@@ -616,7 +616,6 @@ func updateAudioRecorderViewControllerConfig(_ configuration: AudioRecorderViewC
 	
 	configuration.backButtonImage = "ic-close"
 	configuration.doneButtonImage = "ic-done"
-	configuration.
 	configuration.dimViewColor = #colorLiteral(red: 0.3176470588, green: 0.5960784314, blue: 0.8549019608, alpha: 0.2039811644)
 	configuration.additionalLabelColors = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
 	configuration.startingRecordingTimerSeconds = 0.0
