@@ -147,12 +147,12 @@ private func updateRecorderConfiguration(_ configuration: RecorderConfiguration)
 		imageConfiguration: ImageConfiguration(imageName: "ic-beauty"),
 		selectedImageConfiguration: ImageConfiguration(imageName: "ic-beauty-on")
 	  ),
-	  AdditionalEffectsButtonConfiguration(
-		identifier: .sound,
-		imageConfiguration: ImageConfiguration(imageName: "ic-mic"),
-		selectedImageConfiguration: ImageConfiguration(imageName: "ic-mic-off"),
-		position: .bottom
-	  ),
+//	  AdditionalEffectsButtonConfiguration(
+//		identifier: .sound,
+//		imageConfiguration: ImageConfiguration(imageName: "ic-mic"),
+//		selectedImageConfiguration: ImageConfiguration(imageName: "ic-mic-off"),
+//		position: .bottom
+//	  ),
 	  AdditionalEffectsButtonConfiguration(
 		identifier: .effects,
 		imageConfiguration: ImageConfiguration(imageName: "ic-filter"),
@@ -195,11 +195,11 @@ private func updateRecorderConfiguration(_ configuration: RecorderConfiguration)
 		imageConfiguration: ImageConfiguration(imageName: "ic-speed"),
 		selectedImageConfiguration: nil
 	  ),
-	  AdditionalEffectsButtonConfiguration(
-		identifier: .muteSound,
-		imageConfiguration: ImageConfiguration(imageName: "ic-mic"),
-		selectedImageConfiguration: ImageConfiguration(imageName: "ic_mic_off")
-	  ),
+//	  AdditionalEffectsButtonConfiguration(
+//		identifier: .muteSound,
+//		imageConfiguration: ImageConfiguration(imageName: "ic-mic"),
+//		selectedImageConfiguration: ImageConfiguration(imageName: "ic_mic_off")
+//	  ),
 	]
 
 	configuration.speedButton = SpeedButtonConfiguration(
