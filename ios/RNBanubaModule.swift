@@ -106,7 +106,7 @@ extension RNBanubaModule: BanubaVideoEditorDelegate {
 
 private func createVideoEditorConfiguration() -> VideoEditorConfig {
 	var config = VideoEditorConfig()
-	
+		
 	var featureConfiguration = config.featureConfiguration
 	featureConfiguration.supportsTrimRecordedVideo = true
 	featureConfiguration.isAudioBrowserEnabled = false
@@ -114,7 +114,7 @@ private func createVideoEditorConfiguration() -> VideoEditorConfig {
 	config.updateFeatureConfiguration(featureConfiguration: featureConfiguration)
 	
 	config.isHandfreeEnabled = true
-  
+	
 	// Do customization here
 	config.recorderConfiguration = updateRecorderConfiguration(config.recorderConfiguration)
 	config.editorConfiguration = updateEditorConfiguration(config.editorConfiguration)
@@ -131,7 +131,8 @@ private func createVideoEditorConfiguration() -> VideoEditorConfig {
 //	config.filterConfiguration = updateFilterConfiguration(config.filterConfiguration)
 	config.alertViewConfiguration = updateAlertViewConfiguration(config.alertViewConfiguration)
 //	config.fullScreenActivityConfiguration = updateFullScreenActivityConfiguration(config.fullScreenActivityConfiguration)
-	config.gifPickerConfiguration = updateGifPickerConfiguration(config.gifPickerConfiguration)
+//	config.gifPickerConfiguration = updateGifPickerConfiguration(config.gifPickerConfiguration)
+	config.videoDurationConfiguration = updateVideoDurationConfiguration(config.videoDurationConfiguration)
   
   return config
 }
@@ -396,9 +397,9 @@ private func updateSingleTrimConfiguration(_ configuration: SingleTrimConfigurat
 	return configuration
 }
 
-private func updateGifPickerConfiguration(_ configuration: GifPickerConfiguration) -> GifPickerConfiguration {
+private func updateVideoDurationConfiguration(_ configuration: VideoEditorDurationConfig) -> VideoEditorDurationConfig {
 	var configuration = configuration
-
+	configuration.maximumVideoDuration = 15
 	return configuration
 }
 
