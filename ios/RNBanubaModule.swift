@@ -415,6 +415,7 @@ private func updateSpeedSelectionConfiguration(_ configuration: SpeedSelectionCo
 	configuration.screenName.font = UIFont.systemFont(ofSize: 20.0)
 	configuration.speedBarConfiguration.backgroundColor = UIColor.init(red: 230, green: 232, blue: 235)
 	configuration.speedBarConfiguration.cornerRadius = 8
+	configuration.speedBarConfiguration.speedItemTextColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
 	configuration.speedBarConfiguration.selectorColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
 	configuration.speedBarConfiguration.selectorTextColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
 	
