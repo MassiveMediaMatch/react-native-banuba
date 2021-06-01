@@ -71,7 +71,7 @@ class RNBanubaModule: NSObject, RCTBridgeModule {
 		  watermarkConfiguration: nil
 		)
 		
-		videoEditorSDK?.exportVideo(fileURL: videoURL, completion: { (success, error) in
+		videoEditorSDK?.exportVideos(using: [exportConfiguration], completion: { (success, error) in
 			DispatchQueue.main.async {
 				// Clear video editor session data
 				self.videoEditorSDK?.clearSessionData()
