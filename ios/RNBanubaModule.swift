@@ -33,10 +33,7 @@ class RNBanubaModule: NSObject, RCTBridgeModule {
     let config = createVideoEditorConfiguration()
     videoEditorSDK = BanubaVideoEditor(
       token: videoEditorToken,
-      effectsToken: effectToken,
-	  isFaceAREnabled: false,
-      configuration: config,
-      externalViewControllerFactory: nil
+      configuration: config
     )
     videoEditorSDK?.delegate = self
 	
@@ -109,11 +106,9 @@ private func createVideoEditorConfiguration() -> VideoEditorConfig {
 		
 	var featureConfiguration = config.featureConfiguration
 	featureConfiguration.supportsTrimRecordedVideo = true
-	featureConfiguration.isAudioBrowserEnabled = false
 	featureConfiguration.isMuteCameraAudioEnabled = true
 	featureConfiguration.isDoubleTapForToggleCameraEnabled = true
 	config.updateFeatureConfiguration(featureConfiguration: featureConfiguration)
-	
 	config.isHandfreeEnabled = true
 	
 	// Do customization here
@@ -403,16 +398,30 @@ private func updateSpeedSelectionConfiguration(_ configuration: SpeedSelectionCo
 private func updateHandsFreeConfiguration(_ configuration: HandsfreeConfiguration) -> HandsfreeConfiguration {
 	var configuration = configuration
 
-	configuration.timerOptionBarConfiguration.backgroundColor = .white
-	configuration.timerOptionBarConfiguration.barCornerRadius = 8
-	configuration.timerOptionBarConfiguration.activeThumbAndLineColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
-	configuration.timerOptionBarConfiguration.inactiveThumbAndLineColor = UIColor.init(red: 230, green: 232, blue: 235)
-	configuration.timerOptionBarConfiguration.switchOnTintColor = UIColor.init(red: 230, green: 232, blue: 235)
-	configuration.timerOptionBarConfiguration.buttonBackgroundColor = UIColor.init(red: 1, green: 207, blue: 151) // ablo green
-	configuration.timerOptionBarConfiguration.buttonCornerRadius = 24
-	configuration.timerOptionBarConfiguration.optionTextColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
+	// configuration.timerOptionBarConfiguration.timerDisabledOptionTitle // text inside selector
+	
+	// selector (off - 1s - 3s - 5s)
+	configuration.timerOptionBarConfiguration.selectorColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+//	configuration.timerOptionBarConfiguration.selectorEdgeInsets = UIEdgeInsets(top: 12, left: 32, bottom: 12, right: 32)
+	configuration.timerOptionBarConfiguration.selectorTextColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
+	configuration.timerOptionBarConfiguration.optionBackgroundColor = UIColor(red: 230, green: 232, blue: 235) // very light blue
 	configuration.timerOptionBarConfiguration.optionCornerRadius = 8
+	configuration.timerOptionBarConfiguration.optionTextColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
 	configuration.timerOptionBarConfiguration.sliderCornerRadius = 8
+	configuration.timerOptionBarConfiguration.backgroundColor = UIColor(red: 230, green: 232, blue: 235) // very light grey
+	configuration.timerOptionBarConfiguration.barCornerRadius = 8
+		
+	configuration.timerOptionBarConfiguration.cornerRadius = 0
+	
+	configuration.timerOptionBarConfiguration.backgroundViewColor = .gray
+	
+	configuration.timerOptionBarConfiguration.activeThumbAndLineColor = .purple // UIColor(red: 255, green: 227, blue: 23) // sun yellow
+	configuration.timerOptionBarConfiguration.inactiveThumbAndLineColor = .green // UIColor(red: 230, green: 232, blue: 235) // very light grey
+	configuration.timerOptionBarConfiguration.switchOnTintColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+	
+	// bottom button start recording
+	configuration.timerOptionBarConfiguration.buttonBackgroundColor = UIColor.init(red: 1, green: 207, blue: 151) // ablo green
+	configuration.timerOptionBarConfiguration.buttonCornerRadius = 20
 	
 	return configuration
 }
