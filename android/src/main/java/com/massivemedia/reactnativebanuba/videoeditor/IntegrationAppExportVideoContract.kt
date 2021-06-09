@@ -1,4 +1,4 @@
-package com.massivemedia.reactnativebanuba.videoeditor
+package com.banuba.example.integrationapp.videoeditor
 
 import android.app.Activity
 import android.content.Context
@@ -14,7 +14,7 @@ import com.banuba.sdk.veui.ui.ExportResult
  * to the video created in VideoCreationActivity
  */
 
-class IntegrationAppExportVideoContract : ActivityResultContract<Intent, ExportResult?>() {
+class IntegrationAppExportVideoContract: ActivityResultContract<Intent, ExportResult?>() {
 
     override fun createIntent(context: Context, input: Intent?): Intent {
         check(input != null) {

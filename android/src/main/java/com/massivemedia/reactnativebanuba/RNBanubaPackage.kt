@@ -3,8 +3,8 @@ package com.massivemedia.reactnativebanuba
 import android.app.Application
 import com.banuba.sdk.arcloud.di.ArCloudKoinModule
 import com.banuba.sdk.audiobrowser.di.AudioBrowserKoinModule
-import com.banuba.sdk.effectplayer.adapter.BanubaEffectPlayerKoinModule
-import com.banuba.sdk.token.storage.TokenStorageKoinModule
+import com.banuba.sdk.gallery.di.GalleryKoinModule
+import com.banuba.sdk.token.storage.di.TokenStorageKoinModule
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
@@ -19,11 +19,13 @@ class RNBanubaPackage(application: Application) : ReactPackage {
         startKoin {
             androidContext(application)
 
+            // pass the customized Koin module that implements required dependencies.
             modules(
+                    AudioBrowserKoinModule().module, // use this module only if you bought it
                     ArCloudKoinModule().module,
                     TokenStorageKoinModule().module,
                     VideoEditorKoinModule().module,
-                    AudioBrowserKoinModule().module, // use this module only if you bought it
+                    GalleryKoinModule().module
             )
         }
     }

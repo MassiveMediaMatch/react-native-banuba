@@ -1,4 +1,4 @@
-package com.massivemedia.reactnativebanuba.videoeditor.widget.recordbutton
+package com.banuba.example.integrationapp.videoeditor.widget.recordbutton
 
 import android.view.animation.Interpolator
 import kotlin.math.abs

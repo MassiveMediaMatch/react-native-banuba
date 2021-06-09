@@ -1,4 +1,4 @@
-package com.massivemedia.reactnativebanuba.videoeditor.impl
+package com.banuba.example.integrationapp.videoeditor.impl
 
 import com.banuba.sdk.cameraui.data.CameraTimerStateProvider
 import com.banuba.sdk.cameraui.data.TimerEntry

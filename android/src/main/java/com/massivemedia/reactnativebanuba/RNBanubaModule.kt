@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.banuba.sdk.cameraui.domain.MODE_RECORD_VIDEO
+import com.banuba.sdk.token.storage.license.EditorLicenseManager
 import com.banuba.sdk.ve.flow.VideoCreationActivity
 import com.banuba.sdk.veui.ui.EXTRA_EXPORTED_SUCCESS
 import com.banuba.sdk.veui.ui.ExportResult
@@ -32,14 +33,16 @@ class RNBanubaModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
 
     @ReactMethod
     fun startEditor(promise: Promise) {
+        val sharedPref = reactApplicationContext.getSharedPreferences("banuba", Context.MODE_PRIVATE)
+        val token = sharedPref.getString("banuba_video_editor_token", "")
+        EditorLicenseManager.initialize(token!!)
         val intent = VideoCreationActivity.buildIntent(
-                reactApplicationContext,
+                context = reactApplicationContext,
                 // setup what kind of action you want to do with VideoCreationActivity
-                MODE_RECORD_VIDEO,
                 // setup data that will be acceptable during export flow
-                null,
+                additionalExportData = null,
                 // set TrackData object if you open VideoCreationActivity with preselected music track
-                null
+                audioTrackData = null
         )
         reactApplicationContext.addActivityEventListener(this)
         reactApplicationContext.startActivityForResult(intent, 1, null);

@@ -1,4 +1,4 @@
-package com.massivemedia.reactnativebanuba.videoeditor.widget.recordbutton
+package com.banuba.example.integrationapp.videoeditor.widget.recordbutton
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -10,9 +10,9 @@ import com.banuba.sdk.core.ui.ext.dimen
 import com.massivemedia.reactnativebanuba.R
 
 internal class RecordButtonOuterView @JvmOverloads constructor(
-        context: Context,
-        attr: AttributeSet? = null,
-        defStyle: Int = 0
+    context: Context,
+    attr: AttributeSet? = null,
+    defStyle: Int = 0
 ) : View(context, attr, defStyle) {
 
     companion object {
@@ -39,10 +39,10 @@ internal class RecordButtonOuterView @JvmOverloads constructor(
             style = Paint.Style.STROKE
             strokeWidth = circleWidth
             shader = SweepGradient(
-                    measuredWidth.toFloat() / 2,
-                    measuredHeight.toFloat() / 2,
-                    circleColors,
-                    null
+                measuredWidth.toFloat() / 2,
+                measuredHeight.toFloat() / 2,
+                circleColors,
+                null
             )
         }
     }
@@ -80,10 +80,10 @@ internal class RecordButtonOuterView @JvmOverloads constructor(
         if (!isDrawAreaMeasured) {
             isDrawAreaMeasured = true
             circleDrawArea = RectF(
-                    0f + circleWidth,
-                    0f + circleWidth,
-                    measuredWidth.toFloat() - circleWidth,
-                    measuredHeight.toFloat() - circleWidth
+                0f + circleWidth,
+                0f + circleWidth,
+                measuredWidth.toFloat() - circleWidth,
+                measuredHeight.toFloat() - circleWidth
             )
         }
         with(canvas) {
@@ -92,18 +92,18 @@ internal class RecordButtonOuterView @JvmOverloads constructor(
             drawArc(circleDrawArea, ANGLE_START, ANGLE_END, false, gradientPaint)
             restore()
             drawArc(
-                    circleDrawArea,
-                    gradientSweepAngle,
-                    ANGLE_END - gradientSweepAngle,
-                    false,
-                    whitePaint
+                circleDrawArea,
+                gradientSweepAngle,
+                ANGLE_END - gradientSweepAngle,
+                false,
+                whitePaint
             )
         }
     }
 
     fun startAnimation(
-            availableDurationMs: Long,
-            maxDurationMs: Long
+        availableDurationMs: Long,
+        maxDurationMs: Long
     ) {
         circleWidth = context.dimen(R.dimen.record_button_circle_progress_width)
         animator.duration = maxDurationMs
