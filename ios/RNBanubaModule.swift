@@ -412,12 +412,19 @@ private func updateHandsFreeConfiguration(_ configuration: HandsfreeConfiguratio
 	configuration.timerOptionBarConfiguration.barCornerRadius = 8
 		
 	configuration.timerOptionBarConfiguration.cornerRadius = 0
+	configuration.timerOptionBarConfiguration.backgroundViewColor = .white
 	
-	configuration.timerOptionBarConfiguration.backgroundViewColor = .gray
+	configuration.timerOptionBarConfiguration.timerTitleColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
+	configuration.timerOptionBarConfiguration.modeTitleColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
+	configuration.timerOptionBarConfiguration.dragTitleColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
+	configuration.timerOptionBarConfiguration.minimumValueTextColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
+	configuration.timerOptionBarConfiguration.currentValueTextColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
+	configuration.timerOptionBarConfiguration.maximumValueTextColor = UIColor(red: 29, green: 34, blue: 42) // dark grey
+	configuration.timerOptionBarConfiguration.buttonTitleColor = .white
 	
-	configuration.timerOptionBarConfiguration.activeThumbAndLineColor = .purple // UIColor(red: 255, green: 227, blue: 23) // sun yellow
-	configuration.timerOptionBarConfiguration.inactiveThumbAndLineColor = .green // UIColor(red: 230, green: 232, blue: 235) // very light grey
-	configuration.timerOptionBarConfiguration.switchOnTintColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
+//	configuration.timerOptionBarConfiguration.activeThumbAndLineColor = .purple // UIColor(red: 255, green: 227, blue: 23) // sun yellow
+//	configuration.timerOptionBarConfiguration.inactiveThumbAndLineColor = .green // UIColor(red: 230, green: 232, blue: 235) // very light grey
+//	configuration.timerOptionBarConfiguration.switchOnTintColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
 	
 	// bottom button start recording
 	configuration.timerOptionBarConfiguration.buttonBackgroundColor = UIColor.init(red: 1, green: 207, blue: 151) // ablo green
