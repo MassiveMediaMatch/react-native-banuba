@@ -124,7 +124,7 @@ private func createVideoEditorConfiguration() -> VideoEditorConfig {
 	config.trimGalleryVideoConfiguration = updateTrimGalleryVideoConfiguration(config.trimGalleryVideoConfiguration)
 	config.multiTrimConfiguration = updateMultiTrimConfiguration(config.multiTrimConfiguration)
 	config.singleTrimConfiguration = updateSingleTrimConfiguration(config.singleTrimConfiguration)
-//	config.filterConfiguration = updateFilterConfiguration(config.filterConfiguration)
+	config.filterConfiguration = updateFilterConfiguration(config.filterConfiguration)
 	config.alertViewConfiguration = updateAlertViewConfiguration(config.alertViewConfiguration)
 //	config.fullScreenActivityConfiguration = updateFullScreenActivityConfiguration(config.fullScreenActivityConfiguration)
 //	config.gifPickerConfiguration = updateGifPickerConfiguration(config.gifPickerConfiguration)
@@ -410,7 +410,7 @@ private func updateHandsFreeConfiguration(_ configuration: HandsfreeConfiguratio
 	configuration.timerOptionBarConfiguration.sliderCornerRadius = 8
 	configuration.timerOptionBarConfiguration.backgroundColor = UIColor(red: 230, green: 232, blue: 235) // very light grey
 	configuration.timerOptionBarConfiguration.barCornerRadius = 8
-		
+	
 	configuration.timerOptionBarConfiguration.cornerRadius = 0
 	configuration.timerOptionBarConfiguration.backgroundViewColor = .white
 	
@@ -423,7 +423,7 @@ private func updateHandsFreeConfiguration(_ configuration: HandsfreeConfiguratio
 	configuration.timerOptionBarConfiguration.buttonTitleColor = .white
 	
 //	configuration.timerOptionBarConfiguration.activeThumbAndLineColor = .purple // UIColor(red: 255, green: 227, blue: 23) // sun yellow
-//	configuration.timerOptionBarConfiguration.inactiveThumbAndLineColor = .green // UIColor(red: 230, green: 232, blue: 235) // very light grey
+	configuration.timerOptionBarConfiguration.inactiveThumbAndLineColor = UIColor(red: 230, green: 232, blue: 235) // very light grey
 //	configuration.timerOptionBarConfiguration.switchOnTintColor = UIColor(red: 255, green: 227, blue: 23) // sun yellow
 	
 	// bottom button start recording
@@ -688,3 +688,35 @@ func updateAudioTrackLineEditControllerConfig(_ configuration: AudioTrackLineEdi
 
 	return configuration
 }
+
+private func updateFilterConfiguration(_ configuration: FilterConfiguration) -> FilterConfiguration {
+	var configuration = configuration
+	
+	configuration.controlButtons = [
+	  FilterControlButtonConfig(
+		type: .cancel,
+		imageName: "ic_restart",
+		selectedImageName: nil
+	  ),
+		FilterControlButtonConfig(
+		type: .play,
+		imageName: "ic_editor_play",
+		selectedImageName: "ic_pause"
+	  ),
+		FilterControlButtonConfig(
+		type: .done,
+		imageName: "ic-done",
+		selectedImageName: nil
+	  )
+	]
+
+	configuration.resetButton.backgroundColor = UIColor.init(red: 1, green: 207, blue: 151) // ablo green
+	configuration.resetButton.cornerRadius = 4.0
+	configuration.resetButton.textConfiguration?.color = .white
+	configuration.toolTipLabel.color = .white
+	configuration.cursorButton = ImageButtonConfiguration(imageConfiguration: ImageConfiguration(imageName: "ic_cursor"))
+  
+//	configuration.effectItemConfiguration.cornerRadius = 4.0
+	
+	return configuration
+  }
